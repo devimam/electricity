@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+
+<html lang="en">
+
+<head>
+    <!-- meta section -->
+    <meta charset="utf-8">
+    <meta name="author" content="Mohammad Imam Hossain">
+    <meta name="description" content="A website for Bangladesh electricity bill calculation.">
+    <meta name="keywords" content="Bangladesh, Electricity, Bill, Postpaid, Prepaid, LT-A, LT-B, LT-C1, LT-C2, LT-D1, LT-D2, LT-D3, LT-E, LT-T, MT">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <title>Electricity Bill</title>
+
+    <!-- icon section -->
+    <link href="resources/icon/myicon.jpg" rel="icon">
+
+    <!-- bootstrap css section -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-4bw+/aepP/YC94hEpVNVgiZdgIC5+VKNBQNGCHeKRQN+PtmoHDEXuppvnDJzQIu9" crossorigin="anonymous">
+
+</head>
+
+<body class="container-fluid">
+    <h1 class="text-center">LT-A Electricity Bill</h1>
+    <hr>
+    <form class="row my-3 justify-content-center">
+        <div class="col-auto">
+            <div class="input-group">
+                <span class="input-group-text">Units to Bill</span>
+                <input type="number" id="billedunit" class="form-control" min="0" placeholder="0">
+            </div>
+        </div>
+        <div class="col-auto">
+            <div class="input-group">
+                <span class="input-group-text">Amounts to Bill</span>
+                <input type="number" id="billedamount" class="form-control" min="0" placeholder="0">
+            </div>
+        </div>
+    </form>
+
+    <div class="row">
+        <table class="table table-hover table-bordered text-center">
+            <thead class="table-info">
+                <tr>
+                    <th scope="col">Step</th>
+                    <th scope="col">Unit Range</th>
+                    <th scope="col">Rate/kWh</th>
+                    <th scope="col">Consumed Unit (kWh)</th>
+                    <th scope="col">Billed Amount (Tk)</th>
+                </tr>
+            </thead>
+            <tbody class="table-group-divider">
+                <tr>
+                    <th scope="row">Life Line</th>
+                    <td>000 - 050</td>
+                    <td id="lifelinerate" class="text-end"></td>
+                    <td id="lifelineunit" class="text-end"></td>
+                    <td id="lifelinebill" class="text-end"></td>
+                </tr>
+                <tr>
+                    <th scope="row">Step 1</th>
+                    <td>000 - 075</td>
+                    <td id="step1rate" class="text-end"></td>
+                    <td id="step1unit" class="text-end"></td>
+                    <td id="step1bill" class="text-end"></td>
+                </tr>
+                <tr>
+                    <th scope="row">Step 2</th>
+                    <td>076 - 200</td>
+                    <td id="step2rate" class="text-end"></td>
+                    <td id="step2unit" class="text-end"></td>
+                    <td id="step2bill" class="text-end"></td>
+                </tr>
+                <tr>
+                    <th scope="row">Step 3</th>
+                    <td>201 - 300</td>
+                    <td id="step3rate" class="text-end"></td>
+                    <td id="step3unit" class="text-end"></td>
+                    <td id="step3bill" class="text-end"></td>
+                </tr>
+                <tr>
+                    <th scope="row">Step 4</th>
+                    <td>301 - 400</td>
+                    <td id="step4rate" class="text-end"></td>
+                    <td id="step4unit" class="text-end"></td>
+                    <td id="step4bill" class="text-end"></td>
+                </tr>
+                <tr>
+                    <th scope="row">Step 5</th>
+                    <td>401 - 600</td>
+                    <td id="step5rate" class="text-end"></td>
+                    <td id="step5unit" class="text-end"></td>
+                    <td id="step5bill" class="text-end"></td>
+                </tr>
+                <tr>
+                    <th scope="row">Step 6</th>
+                    <td>601 - Rest</td>
+                    <td id="step6rate" class="text-end"></td>
+                    <td id="step6unit" class="text-end"></td>
+                    <td id="step6bill" class="text-end"></td>
+                </tr>
+            </tbody>
+            <tfoot class="table-group-divider">
+                <tr class="table-light">
+                    <th colspan=3 class="text-end">Total</th>
+                    <th id="energyunit" class="text-end"></th>
+                    <th id="energycost" class="text-end"></th>
+                </tr>
+            </tfoot>
+        </table>
+    </div>
+
+    <footer>
+        All rights reserved. On going ... ...
+    </footer>
+
+    <!-- bootstrap javascript portion -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/js/bootstrap.bundle.min.js" integrity="sha384-HwwvtgBNo3bZJJLYd8oVXjrBZt8cqVSpeBNS5n7C8IVInixGAoxmnlMuBnhbgrkm" crossorigin="anonymous"></script>
+
+    <!-- javascript portion -->
+    <script src="resources/js/electricity.js"></script>
+</body>
+
+</html>
