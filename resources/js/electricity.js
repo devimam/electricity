@@ -1,3 +1,10 @@
+/*
+Title: electricity
+Author: Mohammad Imam Hossain
+Date: 28/08/2023
+All rights reserved
+*/
+
 ///energy rate update section
 var lt_a = {
     lifelinerate: 4.35,
