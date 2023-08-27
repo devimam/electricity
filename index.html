@@ -13,106 +13,247 @@
     <title>Electricity Bill</title>
 
     <!-- icon section -->
-    <link href="resources/icon/myicon.jpg" rel="icon">
+    <link href="resources/icon/myicon.png" rel="icon">
 
     <!-- bootstrap css section -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-4bw+/aepP/YC94hEpVNVgiZdgIC5+VKNBQNGCHeKRQN+PtmoHDEXuppvnDJzQIu9" crossorigin="anonymous">
 
 </head>
 
-<body class="container-fluid">
-    <h1 class="text-center">LT-A Electricity Bill</h1>
-    <hr>
-    <form class="row my-3 justify-content-center">
-        <div class="col-auto">
-            <div class="input-group">
-                <span class="input-group-text">Units to Bill</span>
-                <input type="number" id="billedunit" class="form-control" min="0" placeholder="0">
+<body>
+    <header>
+        <nav class="navbar navbar-expand-lg bg-body-tertiary">
+            <div class="container-fluid">
+                <a class="navbar-brand" href="#"><img src="resources/icon/myicon.png" alt="logo" width="35" height="30">Bangladesh Electricity Bill</a>
+                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarContent" aria-controls="navbarContent" aria-expanded="false" aria-label="Toggle navigation">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+
+                <div class="collapse navbar-collapse" id="navbarContent">
+                    <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+                        <li class="nav-item dropdown">
+                            <a class="nav-link active dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">Low Tension (LT)</a>
+                            <ul class="dropdown-menu">
+                                <li><span class="dropdown-item-text">Single phase 0-7.5 kW, 230 V</span></li>
+                                <li><span class="dropdown-item-text">Three phase 0-80 kW, 400 V</span></li>
+                                <li>
+                                    <hr class="dropdown-divider">
+                                </li>
+                                <li><a class="dropdown-item active" href="#">LT-A : Residential</a></li>
+                                <li><a class="dropdown-item" href="#">LT-B : Irrigation/Pump for Agriculture</a></li>
+                                <li>
+                                    <hr class="dropdown-divider">
+                                </li>
+                                <li><a class="dropdown-item" href="#">LT-C1 : Small Industry</a></li>
+                                <li><a class="dropdown-item" href="#">LT-C2 : Construction</a></li>
+                                <li>
+                                    <hr class="dropdown-divider">
+                                </li>
+                                <li><a class="dropdown-item" href="#">LT-D1 : Education, Religious & Charitable Institutions and Hospital</a></li>
+                                <li><a class="dropdown-item" href="#">LT-D2 : Street Light & Water Pump</a></li>
+                                <li><a class="dropdown-item" href="#">LT-D3 : Battery Charging Station</a></li>
+                                <li>
+                                    <hr class="dropdown-divider">
+                                </li>
+                                <li><a class="dropdown-item" href="#">LT-E : Commercial & Office</a></li>
+                                <li><a class="dropdown-item" href="#">LT-T : Temporary</a></li>
+                            </ul>
+                        </li>
+
+                        <li class="nav-item dropdown">
+                            <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">Medium Tension (MT)</a>
+                            <ul class="dropdown-menu">
+                                <li><span class="dropdown-item-text">50 kW - 05 MW, 11 kV</span></li>
+                                <li>
+                                    <hr class="dropdown-divider">
+                                </li>
+                                <li><a class="dropdown-item" href="#">MT-1 : Residential</a></li>
+                                <li><a class="dropdown-item" href="#">MT-2 : Commercial & Office</a></li>
+                                <li><a class="dropdown-item" href="#">MT-3 : Industry</a></li>
+                                <li><a class="dropdown-item" href="#">MT-4 : Construction</a></li>
+                                <li><a class="dropdown-item" href="#">MT-5 : General</a></li>
+                                <li><a class="dropdown-item" href="#">MT-6 : Temporary</a></li>
+                                <li><a class="dropdown-item" href="#">MT-7 : Battery Charging Station</a></li>
+                                <li><a class="dropdown-item" href="#">MT-8 : Irrigation/Pump for Agriculture</a></li>
+                            </ul>
+                        </li>
+
+                        <li class="nav-item dropdown">
+                            <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">High Tension (HT)</a>
+                            <ul class="dropdown-menu">
+                                <li><span class="dropdown-item-text">05 MW - 30 MW, 33 kV</span></li>
+                                <li>
+                                    <hr class="dropdown-divider">
+                                </li>
+                                <li><a class="dropdown-item" href="#">HT-1 : General</a></li>
+                                <li><a class="dropdown-item" href="#">HT-2 : Commercial & Office</a></li>
+                                <li><a class="dropdown-item" href="#">HT-3 : Industry</a></li>
+                                <li><a class="dropdown-item" href="#">HT-4 : Construction</a></li>
+                            </ul>
+                        </li>
+
+                        <li class="nav-item dropdown">
+                            <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">Extra High Tension (EHT)</a>
+                            <ul class="dropdown-menu">
+                                <li><span class="dropdown-item-text">EHT-1 : 20 MW - 140 MW, 132 kV & 230 kV</span></li>
+                                <li><span class="dropdown-item-text">EHT-2 : above 140 MW, 132 kV & 230 kV</span></li>
+                                <li>
+                                    <hr class="dropdown-divider">
+                                </li>
+                                <li><a class="dropdown-item" href="#">EHT-1 : General</a></li>
+                                <li><a class="dropdown-item" href="#">EHT-2 : General</a></li>
+                            </ul>
+                        </li>
+
+                        <li class="nav-item">
+                            <a href="resources/refs/Tariff rate.pdf" class="nav-link" target="_blank">Tariff Rate</a>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </nav>
+    </header>
+
+    <main class="container-fluid">
+        <div class="row">
+            <h1 class="text-center text-secondary">LT-A : Residential</h1>
+            <hr>
+        </div>
+        <form class="row mb-2 justify-content-center">
+            <div class="col-auto mb-2">
+                <div class="input-group">
+                    <span class="input-group-text" style="width:140px;">Units to Bill</span>
+                    <input type="number" id="billedunit" class="form-control" min="0" placeholder="0">
+                    <span class="input-group-text" style="width:50px;">kWh</span>
+                </div>
+            </div>
+            <div class="col-auto mb-2">
+                <div class="input-group">
+                    <span class="input-group-text" style="width:140px;">Amounts to Bill</span>
+                    <input type="number" id="billedamount" class="form-control" min="0" placeholder="0">
+                    <span class="input-group-text" style="width:50px;">BDT</span>
+                </div>
+            </div>
+        </form>
+
+        <form class="row mb-2 justify-content-center">
+            <div class="col-auto mb-2">
+                <div class="input-group">
+                    <span class="input-group-text" style="width:140px;">Sanctioned Load</span>
+                    <input type="number" id="sload" class="form-control" min="1" value="1">
+                    <span class="input-group-text" style="width:50px;">kW</span>
+                </div>
+            </div>
+            <div class="col-auto mb-2">
+                <div class="input-group">
+                    <span class="input-group-text" style="width:140px;">Connected Load</span>
+                    <input type="number" id="cload" class="form-control" min="1" value="1">
+                    <span class="input-group-text" style="width:50px;">kW</span>
+                </div>
+            </div>
+        </form>
+
+        <div class="row">
+            <table class="table shadow table-hover table-bordered text-center">
+                <thead class="table-info">
+                    <tr>
+                        <th scope="col">Step</th>
+                        <th scope="col">Unit Range</th>
+                        <th scope="col">Rate/kWh</th>
+                        <th scope="col">Consumed Unit (kWh)</th>
+                        <th scope="col">Unit Cost (Tk)</th>
+                    </tr>
+                </thead>
+                <tbody class="table-group-divider">
+                    <tr>
+                        <th scope="row">Life Line</th>
+                        <td>000 - 050</td>
+                        <td id="lifelinerate" class="text-end"></td>
+                        <td id="lifelineunit" class="text-end"></td>
+                        <td id="lifelinebill" class="text-end"></td>
+                    </tr>
+                    <tr>
+                        <th scope="row">Step 1</th>
+                        <td>000 - 075</td>
+                        <td id="step1rate" class="text-end"></td>
+                        <td id="step1unit" class="text-end"></td>
+                        <td id="step1bill" class="text-end"></td>
+                    </tr>
+                    <tr>
+                        <th scope="row">Step 2</th>
+                        <td>076 - 200</td>
+                        <td id="step2rate" class="text-end"></td>
+                        <td id="step2unit" class="text-end"></td>
+                        <td id="step2bill" class="text-end"></td>
+                    </tr>
+                    <tr>
+                        <th scope="row">Step 3</th>
+                        <td>201 - 300</td>
+                        <td id="step3rate" class="text-end"></td>
+                        <td id="step3unit" class="text-end"></td>
+                        <td id="step3bill" class="text-end"></td>
+                    </tr>
+                    <tr>
+                        <th scope="row">Step 4</th>
+                        <td>301 - 400</td>
+                        <td id="step4rate" class="text-end"></td>
+                        <td id="step4unit" class="text-end"></td>
+                        <td id="step4bill" class="text-end"></td>
+                    </tr>
+                    <tr>
+                        <th scope="row">Step 5</th>
+                        <td>401 - 600</td>
+                        <td id="step5rate" class="text-end"></td>
+                        <td id="step5unit" class="text-end"></td>
+                        <td id="step5bill" class="text-end"></td>
+                    </tr>
+                    <tr>
+                        <th scope="row">Step 6</th>
+                        <td>601 - Rest</td>
+                        <td id="step6rate" class="text-end"></td>
+                        <td id="step6unit" class="text-end"></td>
+                        <td id="step6bill" class="text-end"></td>
+                    </tr>
+                </tbody>
+                <tfoot class="table-group-divider">
+                    <tr class="table-light">
+                        <th colspan=3 class="text-end text-secondary">Electricity Charge</th>
+                        <th id="energyunit" class="text-end text-secondary"></th>
+                        <th id="energycost" class="text-end text-secondary"></th>
+                    </tr>
+                    <tr>
+                        <th colspan=3 class="text-end text-secondary">Demand Charge</th>
+                        <th class="text-end text-secondary"><span id="demandload">1 x 35</span></th>
+                        <th id="demandcost" class="text-end text-secondary">35.00</th>
+                    </tr>
+                    <tr class="table-secondary">
+                        <th colspan=3 class="text-end text-primary">Principal Amount</th>
+                        <th class="text-end"></th>
+                        <th id="principal" class="text-end text-primary"></th>
+                    </tr>
+                    <tr>
+                        <th colspan=3 class="text-end text-primary">VAT (5%)</th>
+                        <th class="text-end"></th>
+                        <th id="vat" class="text-end text-primary"></th>
+                    </tr>
+                    <tr class="table-primary">
+                        <th colspan=3 class="text-end text-danger">Bill Month Total</th>
+                        <th class="text-end"></th>
+                        <th id="billtotal" class="text-end text-danger"></th>
+                    </tr>
+                </tfoot>
+            </table>
+        </div>
+    </main>
+
+    <footer id="footer" class="container-fluid">
+        <div class="row justify-content-center shadow p-3 mb-2 mt-5">
+            <div class="col-auto title-custom">
+                &copy; 2023 <b>Mohammad Imam Hossain</b> | Email: <a href="mailto:imambuet11@gmail.com" class="text-secondary text-decoration-none">imambuet11@gmail.com</a> | All Rights Reserved
             </div>
         </div>
-        <div class="col-auto">
-            <div class="input-group">
-                <span class="input-group-text">Amounts to Bill</span>
-                <input type="number" id="billedamount" class="form-control" min="0" placeholder="0">
-            </div>
-        </div>
-    </form>
-
-    <div class="row">
-        <table class="table table-hover table-bordered text-center">
-            <thead class="table-info">
-                <tr>
-                    <th scope="col">Step</th>
-                    <th scope="col">Unit Range</th>
-                    <th scope="col">Rate/kWh</th>
-                    <th scope="col">Consumed Unit (kWh)</th>
-                    <th scope="col">Billed Amount (Tk)</th>
-                </tr>
-            </thead>
-            <tbody class="table-group-divider">
-                <tr>
-                    <th scope="row">Life Line</th>
-                    <td>000 - 050</td>
-                    <td id="lifelinerate" class="text-end"></td>
-                    <td id="lifelineunit" class="text-end"></td>
-                    <td id="lifelinebill" class="text-end"></td>
-                </tr>
-                <tr>
-                    <th scope="row">Step 1</th>
-                    <td>000 - 075</td>
-                    <td id="step1rate" class="text-end"></td>
-                    <td id="step1unit" class="text-end"></td>
-                    <td id="step1bill" class="text-end"></td>
-                </tr>
-                <tr>
-                    <th scope="row">Step 2</th>
-                    <td>076 - 200</td>
-                    <td id="step2rate" class="text-end"></td>
-                    <td id="step2unit" class="text-end"></td>
-                    <td id="step2bill" class="text-end"></td>
-                </tr>
-                <tr>
-                    <th scope="row">Step 3</th>
-                    <td>201 - 300</td>
-                    <td id="step3rate" class="text-end"></td>
-                    <td id="step3unit" class="text-end"></td>
-                    <td id="step3bill" class="text-end"></td>
-                </tr>
-                <tr>
-                    <th scope="row">Step 4</th>
-                    <td>301 - 400</td>
-                    <td id="step4rate" class="text-end"></td>
-                    <td id="step4unit" class="text-end"></td>
-                    <td id="step4bill" class="text-end"></td>
-                </tr>
-                <tr>
-                    <th scope="row">Step 5</th>
-                    <td>401 - 600</td>
-                    <td id="step5rate" class="text-end"></td>
-                    <td id="step5unit" class="text-end"></td>
-                    <td id="step5bill" class="text-end"></td>
-                </tr>
-                <tr>
-                    <th scope="row">Step 6</th>
-                    <td>601 - Rest</td>
-                    <td id="step6rate" class="text-end"></td>
-                    <td id="step6unit" class="text-end"></td>
-                    <td id="step6bill" class="text-end"></td>
-                </tr>
-            </tbody>
-            <tfoot class="table-group-divider">
-                <tr class="table-light">
-                    <th colspan=3 class="text-end">Total</th>
-                    <th id="energyunit" class="text-end"></th>
-                    <th id="energycost" class="text-end"></th>
-                </tr>
-            </tfoot>
-        </table>
-    </div>
-
-    <footer>
-        All rights reserved. On going ... ...
     </footer>
+
 
     <!-- bootstrap javascript portion -->
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/js/bootstrap.bundle.min.js" integrity="sha384-HwwvtgBNo3bZJJLYd8oVXjrBZt8cqVSpeBNS5n7C8IVInixGAoxmnlMuBnhbgrkm" crossorigin="anonymous"></script>
