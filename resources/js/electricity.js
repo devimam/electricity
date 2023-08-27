@@ -134,7 +134,7 @@ function calculateunitbill(units) {
         }
     }
     document.getElementById('energycost').innerHTML = energycost.toFixed(2);
-    document.getElementById('energyunit').innerHTML = units.toFixed(2);
+    document.getElementById('energyunit').innerHTML = units;
 }
 
 ///billed amount portion
@@ -233,7 +233,7 @@ function calculateamountbill(amounts) {
         }
 
         if (restamounts > 0) {
-            let step5amount = Math.min(100 * lt_a['step5rate'], restamounts);
+            let step5amount = Math.min(200 * lt_a['step5rate'], restamounts);
             let step5unit = Math.floor(step5amount / lt_a['step5rate']);
             let step5bill = step5unit * lt_a['step5rate'];
             energyunits += step5unit;
