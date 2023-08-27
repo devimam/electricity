@@ -111,6 +111,7 @@ function calculatedemandcharge() {
     } else {
         document.getElementById('demandload').innerHTML = "";
         document.getElementById('demandcost').innerHTML = "";
+        updatetotalbill();
     }
 }
 
