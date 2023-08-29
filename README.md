@@ -1,6 +1,6 @@
 # electricity
 
-A web based project for Bangladesh electricity bill calculation
+A web based project for Bangladesh electricity bill and power factor calculation.
 
 ## Getting Started
 
