@@ -106,6 +106,10 @@
                         </li>
 
                         <li class="nav-item">
+                            <a href="#pfcalculator" class="nav-link" data-bs-toggle="modal">Power Factor Calculator</a>
+                        </li>
+
+                        <li class="nav-item">
                             <a href="resources/refs/Tariff rate.pdf" class="nav-link" target="_blank">Tariff Rate</a>
                         </li>
                     </ul>
@@ -258,12 +262,76 @@
         </div>
     </footer>
 
+    <!-- Modal section -->
+    <div class="modal fade" id="pfcalculator" tabindex="-1" aria-labelledby="pfcalculator" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-scrollable">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h1 class="modal-title fs-5 text-secondary">Power Factor Calculator</h1>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <div class="mb-3">
+                        <!-- static bar -->
+                        <div class="progress-stacked mb-1" style="height:2px;">
+                            <div class="progress" role="progressbar" style="width: 75%;">
+                                <div class="progress-bar bg-danger"></div>
+                            </div>
+                            <div class="progress" role="progressbar" style="width: 20%;">
+                                <div class="progress-bar bg-warning"></div>
+                            </div>
+                            <div class="progress" role="progressbar" style="width: 5%;">
+                                <div class="progress-bar bg-success"></div>
+                            </div>
+                        </div>
+
+                        <!-- dynamic bar -->
+                        <div class="progress" role="progressbar">
+                            <div id="pfprogress" class="progress-bar bg-secondary progress-bar-striped progress-bar-animated" style="width: 0%"></div>
+                        </div>
+
+                    </div>
+                    <div class="row">
+                        <div class="col-8">
+                            <div class="input-group mb-3 shadow">
+                                <span class="input-group-text" style="width:120px;">Off Peak Unit</span>
+                                <input type="number" class="form-control" id="pfoffpeak" min="0" placeholder="0">
+                                <span class="input-group-text" style="width:60px;">kWh</span>
+                            </div>
+                            <div class="input-group mb-3 shadow">
+                                <span class="input-group-text" style="width:120px;">Peak Unit</span>
+                                <input type="number" class="form-control" id="pfpeak" min="0" placeholder="0">
+                                <span class="input-group-text" style="width:60px;">kWh</span>
+                            </div>
+                            <div class="input-group mb-3 shadow">
+                                <span class="input-group-text" style="width:120px;">VAR unit</span>
+                                <input type="number" class="form-control" id="pfvar" min="0" placeholder="0">
+                                <span class="input-group-text" style="width:60px;">kVArh</span>
+                            </div>
+                        </div>
+                        <div class="col-4 align-self-center">
+                            <div class="card shadow" id="pfcard">
+                                <div class="card-body text-center">
+                                    <span class="display-4 align-middle" id="pfvalue"></span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-sm btn-outline-secondary" data-bs-dismiss="modal">Close</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
 
     <!-- bootstrap javascript portion -->
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/js/bootstrap.bundle.min.js" integrity="sha384-HwwvtgBNo3bZJJLYd8oVXjrBZt8cqVSpeBNS5n7C8IVInixGAoxmnlMuBnhbgrkm" crossorigin="anonymous"></script>
 
     <!-- javascript portion -->
     <script src="resources/js/electricity.js"></script>
+    <script src="resources/js/powerfactor.js"></script>
 
     <!-- github buttons -->
     <script async defer src="https://buttons.github.io/buttons.js"></script>
