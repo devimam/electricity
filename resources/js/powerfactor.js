@@ -95,7 +95,7 @@ All rights reserved
 
                 let taninverse = Math.atan(ratio);
                 let pf = Math.cos(taninverse);
-                pf = parseFloat(pf.toFixed(2));
+                pf = parseFloat(pf.toFixed(2)); ///for floating point exact compare
                 document.getElementById('pfvalue').innerHTML = pf.toFixed(2);
                 document.getElementById('pfprogress').innerHTML = pf.toFixed(2);
                 if (pf < 0.75) {
