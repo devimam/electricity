@@ -105,8 +105,12 @@
                             </ul>
                         </li>
 
-                        <li class="nav-item">
-                            <a href="#pfcalculator" class="nav-link" data-bs-toggle="modal">Power Factor Calculator</a>
+                        <li class="nav-item dropdown">
+                            <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">Calculator</a>
+                            <ul class="dropdown-menu">
+                                <li><a href="#pfcalculator" class="dropdown-item" data-bs-toggle="modal">Power Factor</a></li>
+                                <li><a href="#systemloss" class="dropdown-item" data-bs-toggle="modal">System Loss</a></li>
+                            </ul>
                         </li>
 
                         <li class="nav-item">
@@ -262,7 +266,7 @@
         </div>
     </footer>
 
-    <!-- Modal section -->
+    <!-- pfcalculator Modal section -->
     <div class="modal fade" id="pfcalculator" tabindex="-1" aria-labelledby="pfcalculator" aria-hidden="true">
         <div class="modal-dialog modal-dialog-scrollable">
             <div class="modal-content">
@@ -325,6 +329,59 @@
         </div>
     </div>
 
+    <!-- systemloss Modal section -->
+    <div class="modal fade" id="systemloss" tabindex="-1" aria-labelledby="systemloss" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-scrollable">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h1 class="modal-title fs-5 text-secondary">System Loss Calculator</h1>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <div class="mb-3">
+                        <!-- dynamic bar -->
+                        <div class="progress" role="progressbar">
+                            <div id="slossprogress" class="progress-bar bg-info progress-bar-striped progress-bar-animated" style="width: 0%"></div>
+                        </div>
+                    </div>
+
+                    <div class="row justify-content-center">
+                        <div class="col-auto mb-3">
+                            <div class="card shadow text-bg-info" id="slosscard">
+                                <div class="card-body text-center">
+                                    <span class="display-4 align-middle" id="slossvalue"></span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="row justify-content-center align-items-center">
+                        <div class="col-12">
+                            <div class="input-group mb-3 shadow">
+                                <span class="input-group-text" style="width:200px;">Total Energy Import</span>
+                                <input type="number" class="form-control" id="slossimport" min="1" placeholder="1">
+                                <span class="input-group-text" style="width:60px;">kWh</span>
+                            </div>
+                            <div class="input-group mb-3 shadow">
+                                <span class="input-group-text" style="width:200px;">Postpaid Energy Sold</span>
+                                <input type="number" class="form-control" id="slosspostpaid" min="0" placeholder="0">
+                                <span class="input-group-text" style="width:60px;">kWh</span>
+                            </div>
+                            <div class="input-group mb-3 shadow">
+                                <span class="input-group-text" style="width:200px;">Prepaid Energy Sold</span>
+                                <input type="number" class="form-control" id="slossprepaid" min="0" placeholder="0">
+                                <span class="input-group-text" style="width:60px;">kWh</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-sm btn-outline-secondary" data-bs-dismiss="modal">Close</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
 
     <!-- bootstrap javascript portion -->
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/js/bootstrap.bundle.min.js" integrity="sha384-HwwvtgBNo3bZJJLYd8oVXjrBZt8cqVSpeBNS5n7C8IVInixGAoxmnlMuBnhbgrkm" crossorigin="anonymous"></script>
@@ -332,6 +389,7 @@
     <!-- javascript portion -->
     <script src="resources/js/electricity.js"></script>
     <script src="resources/js/powerfactor.js"></script>
+    <script src="resources/js/systemloss.js"></script>
 
     <!-- github buttons -->
     <script async defer src="https://buttons.github.io/buttons.js"></script>
