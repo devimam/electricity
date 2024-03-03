@@ -1,0 +1,393 @@
+<!DOCTYPE html>
+
+<html lang="en">
+
+<head>
+    <!-- meta section -->
+    <meta charset="utf-8">
+    <meta name="author"      content="Mohammad Imam Hossain">
+    <meta name="description" content="A website for Bangladesh electricity bill, power factor, and system loss calculation.">
+    <meta name="keywords"    content="Bangladesh, Electricity, Bill, Postpaid, Prepaid, LT-A, LT-B, LT-C1, LT-C2, LT-D1, LT-D2, LT-D3, LT-E, LT-T, MT">
+    <meta name="viewport"    content="width=device-width, initial-scale=1">
+
+    <title>Electricity Bill</title>
+
+    <!-- icon section -->
+    <link href="resources/icon/myicon.png" rel="icon">
+
+    <!-- bootstrap css section -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-4bw+/aepP/YC94hEpVNVgiZdgIC5+VKNBQNGCHeKRQN+PtmoHDEXuppvnDJzQIu9" crossorigin="anonymous">
+
+</head>
+
+<body>
+    <header>
+        <nav class="navbar navbar-expand-lg bg-body-tertiary">
+            <div class="container-fluid">
+                <a class="navbar-brand" href="#"><img src="resources/icon/myicon.png" alt="logo" width="35" height="30">Bangladesh Electricity Bill</a>
+                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarContent" aria-controls="navbarContent" aria-expanded="false" aria-label="Toggle navigation">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+
+                <div class="collapse navbar-collapse" id="navbarContent">
+                    <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+                        <li class="nav-item dropdown">
+                            <a class="nav-link active dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">Low Tension (LT)</a>
+                            <ul class="dropdown-menu">
+                                <li><span class="dropdown-item-text"><span class="fw-semibold">Single phase</span> : 0-7.5 kW, 230 V</span></li>
+                                <li><span class="dropdown-item-text"><span class="fw-semibold">Three phase</span> : 0-80 kW, 400 V</span></li>
+                                <li>
+                                    <hr class="dropdown-divider">
+                                </li>
+                                <li><a class="dropdown-item" href="index.html"><span class="fw-semibold">LT-A</span> : Residential</a></li>
+                                <li><a class="dropdown-item" href="index-B.html"><span class="fw-semibold">LT-B</span> : Irrigation/Pump for Agriculture</a></li>
+                                <li>
+                                    <hr class="dropdown-divider">
+                                </li>
+                                <li><a class="dropdown-item" href="index-C1.html"><span class="fw-semibold">LT-C1</span> : Small Industry</a></li>
+                                <li><a class="dropdown-item" href="index-C2.html"><span class="fw-semibold">LT-C2</span> : Construction</a></li>
+                                <li>
+                                    <hr class="dropdown-divider">
+                                </li>
+                                <li><a class="dropdown-item" href="index-D1.html"><span class="fw-semibold">LT-D1</span> : Education, Religious & Charitable Institutions and Hospital</a></li>
+                                <li><a class="dropdown-item" href="index-D2.html"><span class="fw-semibold">LT-D2</span> : Street Light & Water Pump</a></li>
+                                <li><a class="dropdown-item" href="index-D3.html"><span class="fw-semibold">LT-D3</span> : Battery Charging Station</a></li>
+                                <li>
+                                    <hr class="dropdown-divider">
+                                </li>
+                                <li><a class="dropdown-item" href="index-E.html"><span class="fw-semibold">LT-E</span> : Commercial & Office</a></li>
+                                <li><a class="dropdown-item active" href="index-T.html"><span class="fw-semibold">LT-T</span> : Temporary</a></li>
+                            </ul>
+                        </li>
+
+                        <li class="nav-item dropdown">
+                            <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">Medium Tension (MT)</a>
+                            <ul class="dropdown-menu">
+                                <li><span class="dropdown-item-text">50 kW - 05 MW, 11 kV</span></li>
+                                <li>
+                                    <hr class="dropdown-divider">
+                                </li>
+                                <li><a class="dropdown-item" href="#"><span class="fw-semibold">MT-1</span> : Residential</a></li>
+                                <li><a class="dropdown-item" href="#"><span class="fw-semibold">MT-2</span> : Commercial & Office</a></li>
+                                <li><a class="dropdown-item" href="#"><span class="fw-semibold">MT-3</span> : Industry</a></li>
+                                <li><a class="dropdown-item" href="#"><span class="fw-semibold">MT-4</span> : Construction</a></li>
+                                <li><a class="dropdown-item" href="#"><span class="fw-semibold">MT-5</span> : General</a></li>
+                                <li><a class="dropdown-item" href="#"><span class="fw-semibold">MT-6</span> : Temporary</a></li>
+                                <li><a class="dropdown-item" href="#"><span class="fw-semibold">MT-7</span> : Battery Charging Station</a></li>
+                                <li><a class="dropdown-item" href="#"><span class="fw-semibold">MT-8</span> : Irrigation/Pump for Agriculture</a></li>
+                            </ul>
+                        </li>
+
+                        <li class="nav-item dropdown">
+                            <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">High Tension (HT)</a>
+                            <ul class="dropdown-menu">
+                                <li><span class="dropdown-item-text">05 MW - 30 MW, 33 kV</span></li>
+                                <li>
+                                    <hr class="dropdown-divider">
+                                </li>
+                                <li><a class="dropdown-item" href="#"><span class="fw-semibold">HT-1</span> : General</a></li>
+                                <li><a class="dropdown-item" href="#"><span class="fw-semibold">HT-2</span> : Commercial & Office</a></li>
+                                <li><a class="dropdown-item" href="#"><span class="fw-semibold">HT-3</span> : Industry</a></li>
+                                <li><a class="dropdown-item" href="#"><span class="fw-semibold">HT-4</span> : Construction</a></li>
+                            </ul>
+                        </li>
+
+                        <li class="nav-item dropdown">
+                            <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">Extra High Tension (EHT)</a>
+                            <ul class="dropdown-menu">
+                                <li><span class="dropdown-item-text"><span class="fw-semibold">EHT-1</span> : 20 MW - 140 MW, 132 kV & 230 kV</span></li>
+                                <li><span class="dropdown-item-text"><span class="fw-semibold">EHT-2</span> : above 140 MW, 132 kV & 230 kV</span></li>
+                                <li>
+                                    <hr class="dropdown-divider">
+                                </li>
+                                <li><a class="dropdown-item" href="#"><span class="fw-semibold">EHT-1</span> : General</a></li>
+                                <li><a class="dropdown-item" href="#"><span class="fw-semibold">EHT-2</span> : General</a></li>
+                            </ul>
+                        </li>
+
+                        <li class="nav-item dropdown">
+                            <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">Calculator</a>
+                            <ul class="dropdown-menu">
+                                <li><a href="#pfcalculator" class="dropdown-item" data-bs-toggle="modal">Power Factor</a></li>
+                                <li><a href="#systemloss" class="dropdown-item" data-bs-toggle="modal">System Loss</a></li>
+                            </ul>
+                        </li>
+
+                        <li class="nav-item">
+                            <a href="resources/refs/Tariff Rate - Feb 2024.pdf" class="nav-link" target="_blank" title="Latest Tariff Rate - Feb 29, 2024">Tariff Rate</a>
+                        </li>
+                    </ul>
+
+                    <div class="nav-item ms-auto">
+                        <a class="github-button" href="https://github.com/devimam/electricity" data-color-scheme="no-preference: light; light: light; dark: light;" data-icon="octicon-star" data-size="large" data-show-count="true" aria-label="Star devimam/electricity on GitHub">Star</a>
+                    </div>
+                </div>
+            </div>
+        </nav>
+    </header>
+
+    <main class="container-fluid">
+        <div class="row">
+            <h1 class="text-center text-secondary">LT-T : Temporary</h1>
+            <hr>
+        </div>
+
+        <form class="row mb-2 align-items-end">
+            <div class="col-md-6 mb-md-2">
+                <div class="row mb-2 justify-content-center">
+                    <div class="col-auto">
+                        <div class="form-check form-switch">
+                            <input class="form-check-input" type="checkbox" role="switch" id="dreg">
+                            <label class="form-check-label" for="dreg">Double Register</label>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="row justify-content-center">
+                    <!-- billed unit section -->
+                    <div class="col-auto mb-2" id="singleregister">
+                        <div class="input-group">
+                            <span class="input-group-text" style="width:140px;">Units to Bill</span>
+                            <input type="number" id="srbilledunit" class="form-control" min="0" placeholder="0">
+                            <span class="input-group-text" style="width:50px;">kWh</span>
+                        </div>
+                    </div>
+
+                    <div class="col-auto mb-2 d-none" id="offpkregister">
+                        <div class="input-group">
+                            <span class="input-group-text" style="width:140px;">Offpeak Units</span>
+                            <input type="number" id="offpkbilledunit" class="form-control" min="0" placeholder="0">
+                            <span class="input-group-text" style="width:50px;">kWh</span>
+                        </div>
+                    </div>
+
+                    <div class="col-auto mb-2 d-none" id="pkregister">
+                        <div class="input-group">
+                            <span class="input-group-text" style="width:140px;">Peak Units</span>
+                            <input type="number" id="pkbilledunit" class="form-control" min="0" placeholder="0">
+                            <span class="input-group-text" style="width:50px;">kWh</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="col-md-6 mb-2">
+                <div class="row justify-content-center">
+                    <!-- sanctioned load/connected load section -->
+                    <div class="col-auto mb-2">
+                        <div class="input-group">
+                            <span class="input-group-text" style="width:140px;">Sanctioned Load</span>
+                            <input type="number" id="sload" class="form-control" min="1">
+                            <span class="input-group-text" style="width:50px;">kW</span>
+                        </div>
+                    </div>
+                    <div class="col-auto mb-2">
+                        <div class="input-group">
+                            <span class="input-group-text" style="width:140px;">Connected Load</span>
+                            <input type="number" id="cload" class="form-control" min="1">
+                            <span class="input-group-text" style="width:50px;">kW</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </form>
+
+        <div class="row">
+            <table class="table shadow table-hover table-bordered text-center">
+                <thead class="table-info">
+                    <tr>
+                        <th scope="col">Step</th>
+                        <th scope="col">Rate/kWh</th>
+                        <th scope="col">Consumed Unit (kWh)</th>
+                        <th scope="col">Unit Cost (Tk)</th>
+                    </tr>
+                </thead>
+                <tbody class="table-group-divider">
+                    <tr>
+                        <th scope="row" id="srlabel">Single Register Unit</th>
+                        <td id="srrate" class="text-end"></td>
+                        <td id="srunit" class="text-end"></td>
+                        <td id="srbill" class="text-end"></td>
+                    </tr>
+                    <tr>
+                        <th scope="row" id="offpklabel">Double Register - Offpeak Unit</th>
+                        <td id="offpkrate" class="text-end"></td>
+                        <td id="offpkunit" class="text-end"></td>
+                        <td id="offpkbill" class="text-end"></td>
+                    </tr>
+                    <tr>
+                        <th scope="row" id="pklabel">Double Register - Peak Unit</th>
+                        <td id="pkrate" class="text-end"></td>
+                        <td id="pkunit" class="text-end"></td>
+                        <td id="pkbill" class="text-end"></td>
+                    </tr>
+                </tbody>
+                <tfoot class="table-group-divider">
+                    <tr class="table-light">
+                        <th colspan=2 class="text-end text-secondary">Electricity Charge</th>
+                        <th id="energyunit" class="text-end text-secondary"></th>
+                        <th id="energycost" class="text-end text-secondary"></th>
+                    </tr>
+                    <tr>
+                        <th colspan=2 class="text-end text-secondary">Demand Charge</th>
+                        <th class="text-end text-secondary"><span id="demandload"></span></th>
+                        <th id="demandcost" class="text-end text-secondary"></th>
+                    </tr>
+                    <tr class="table-secondary">
+                        <th colspan=2 class="text-end text-primary">Principal Amount</th>
+                        <th class="text-end"></th>
+                        <th id="principal" class="text-end text-primary"></th>
+                    </tr>
+                    <tr>
+                        <th colspan=2 class="text-end text-primary">VAT (5%)</th>
+                        <th class="text-end"></th>
+                        <th id="vat" class="text-end text-primary"></th>
+                    </tr>
+                    <tr class="table-primary">
+                        <th colspan=2 class="text-end text-success">Bill Month Total</th>
+                        <th class="text-end"></th>
+                        <th id="billtotal" class="text-end text-success"></th>
+                    </tr>
+                </tfoot>
+            </table>
+        </div>
+    </main>
+
+    <footer id="footer" class="container-fluid">
+        <div class="row justify-content-center shadow p-3 mb-2 mt-5">
+            <div class="col-auto title-custom">
+                &copy; 2023 <b>Mohammad Imam Hossain</b> | Email: <a href="mailto:imambuet11@gmail.com" class="text-secondary text-decoration-none">imambuet11@gmail.com</a> | All Rights Reserved
+            </div>
+        </div>
+    </footer>
+
+    <!-- pfcalculator Modal section -->
+    <div class="modal fade" id="pfcalculator" tabindex="-1" aria-labelledby="pfcalculator" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-scrollable">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h1 class="modal-title fs-5 text-secondary">Power Factor Calculator</h1>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <div class="mb-3">
+                        <!-- static bar -->
+                        <div class="progress-stacked mb-1" style="height:2px;">
+                            <div class="progress" role="progressbar" style="width: 75%;">
+                                <div class="progress-bar bg-danger"></div>
+                            </div>
+                            <div class="progress" role="progressbar" style="width: 20%;">
+                                <div class="progress-bar bg-warning"></div>
+                            </div>
+                            <div class="progress" role="progressbar" style="width: 5%;">
+                                <div class="progress-bar bg-success"></div>
+                            </div>
+                        </div>
+
+                        <!-- dynamic bar -->
+                        <div class="progress" role="progressbar">
+                            <div id="pfprogress" class="progress-bar bg-secondary progress-bar-striped progress-bar-animated" style="width: 0%"></div>
+                        </div>
+                    </div>
+
+                    <div class="row justify-content-center align-items-center">
+                        <div class="col-md-8 order-2 order-md-1">
+                            <div class="input-group mb-3 shadow">
+                                <span class="input-group-text" style="width:120px;">Off Peak Unit</span>
+                                <input type="number" class="form-control" id="pfoffpeak" min="0" placeholder="0">
+                                <span class="input-group-text" style="width:60px;">kWh</span>
+                            </div>
+                            <div class="input-group mb-3 shadow">
+                                <span class="input-group-text" style="width:120px;">Peak Unit</span>
+                                <input type="number" class="form-control" id="pfpeak" min="0" placeholder="0">
+                                <span class="input-group-text" style="width:60px;">kWh</span>
+                            </div>
+                            <div class="input-group mb-3 shadow">
+                                <span class="input-group-text" style="width:120px;">VAR unit</span>
+                                <input type="number" class="form-control" id="pfvar" min="0" placeholder="0">
+                                <span class="input-group-text" style="width:60px;">kVArh</span>
+                            </div>
+                        </div>
+                        <div class="col-auto order-1 order-md-2 mb-3">
+                            <div class="card shadow" id="pfcard">
+                                <div class="card-body text-center">
+                                    <span class="display-4 align-middle" id="pfvalue"></span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-sm btn-outline-secondary" data-bs-dismiss="modal">Close</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- systemloss Modal section -->
+    <div class="modal fade" id="systemloss" tabindex="-1" aria-labelledby="systemloss" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-scrollable">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h1 class="modal-title fs-5 text-secondary">System Loss Calculator</h1>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <div class="mb-3">
+                        <!-- dynamic bar -->
+                        <div class="progress" role="progressbar">
+                            <div id="slossprogress" class="progress-bar bg-info progress-bar-striped progress-bar-animated" style="width: 0%"></div>
+                        </div>
+                    </div>
+
+                    <div class="row justify-content-center">
+                        <div class="col-auto mb-3">
+                            <div class="card shadow text-bg-info" id="slosscard">
+                                <div class="card-body text-center">
+                                    <span class="display-4 align-middle" id="slossvalue"></span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="row justify-content-center align-items-center">
+                        <div class="col-12">
+                            <div class="input-group mb-3 shadow">
+                                <span class="input-group-text" style="width:200px;">Total Energy Import</span>
+                                <input type="number" class="form-control" id="slossimport" min="1" placeholder="1">
+                                <span class="input-group-text" style="width:60px;">kWh</span>
+                            </div>
+                            <div class="input-group mb-3 shadow">
+                                <span class="input-group-text" style="width:200px;">Postpaid Energy Sold</span>
+                                <input type="number" class="form-control" id="slosspostpaid" min="0" placeholder="0">
+                                <span class="input-group-text" style="width:60px;">kWh</span>
+                            </div>
+                            <div class="input-group mb-3 shadow">
+                                <span class="input-group-text" style="width:200px;">Prepaid Energy Sold</span>
+                                <input type="number" class="form-control" id="slossprepaid" min="0" placeholder="0">
+                                <span class="input-group-text" style="width:60px;">kWh</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-sm btn-outline-secondary" data-bs-dismiss="modal">Close</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+    <!-- bootstrap javascript portion -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/js/bootstrap.bundle.min.js" integrity="sha384-HwwvtgBNo3bZJJLYd8oVXjrBZt8cqVSpeBNS5n7C8IVInixGAoxmnlMuBnhbgrkm" crossorigin="anonymous"></script>
+
+    <!-- javascript portion -->
+    <script src="resources/js/electricity-T.js"></script>
+    <script src="resources/js/powerfactor.js"></script>
+    <script src="resources/js/systemloss.js"></script>
+
+    <!-- github buttons -->
+    <script async defer src="https://buttons.github.io/buttons.js"></script>
+</body>
+
+</html>
