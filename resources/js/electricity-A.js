@@ -43,13 +43,12 @@ sloadelm.addEventListener("change", validateSLoad);
 function validateSLoad() {
   let sload = parseFloat(sloadelm.value);
   let isvalid = Number.isSafeInteger(sload);
+  sloadelm.classList.remove("is-invalid", "is-valid");
   if (isvalid && sload >= 1) {
     console.log("valid sanction load");
-    sloadelm.classList.remove("is-invalid");
     sloadelm.classList.add("is-valid");
   } else {
     console.log("invalid sanction load");
-    sloadelm.classList.remove("is-valid");
     sloadelm.classList.add("is-invalid");
   }
 
@@ -64,13 +63,12 @@ cloadelm.addEventListener("change", validateCLoad);
 function validateCLoad() {
   let cload = parseFloat(cloadelm.value);
   let isvalid = Number.isSafeInteger(cload);
+  cloadelm.classList.remove("is-invalid", "is-valid");
   if (isvalid && cload >= 1) {
     console.log("valid connected load");
-    cloadelm.classList.remove("is-invalid");
     cloadelm.classList.add("is-valid");
   } else {
     console.log("invalid connected load");
-    cloadelm.classList.remove("is-valid");
     cloadelm.classList.add("is-invalid");
   }
 
@@ -83,31 +81,29 @@ billedunitelm.addEventListener("keyup", validateUnit);
 billedunitelm.addEventListener("change", validateUnit);
 
 function validateUnit() {
-  ///resetting amount to bill section
+  ///resetting amount to bill section, mutually exclusive feature
   document.getElementById("billedamount").value = "";
   document
     .getElementById("billedamount")
     .classList.remove("is-valid", "is-invalid");
 
+  ///validating
   if (billedunitelm.value == "") {
     billedunitelm.classList.remove("is-invalid", "is-valid");
-    resetall();
   } else {
     let billedunit = parseFloat(billedunitelm.value);
     let isvalid = Number.isSafeInteger(billedunit);
+    billedunitelm.classList.remove("is-invalid", "is-valid");
     if (isvalid && billedunit >= 0) {
       console.log("valid units to bill");
-      billedunitelm.classList.remove("is-invalid");
       billedunitelm.classList.add("is-valid");
-      resetall();
     } else {
       console.log("invalid  units to bill");
-      billedunitelm.classList.remove("is-valid");
       billedunitelm.classList.add("is-invalid");
-      resetall();
     }
   }
 
+  resetall();
   calculatedemandcharge();
 }
 
@@ -117,31 +113,29 @@ billedamountelm.addEventListener("keyup", validateAmount);
 billedamountelm.addEventListener("change", validateAmount);
 
 function validateAmount() {
-  ///resetting units to bill section
+  ///resetting units to bill section, mutually exclusive feature
   document.getElementById("billedunit").value = "";
   document
     .getElementById("billedunit")
     .classList.remove("is-valid", "is-invalid");
 
+  ///validating
   if (billedamountelm.value == "") {
     billedamountelm.classList.remove("is-invalid", "is-valid");
-    resetall();
   } else {
     let billedamount = parseFloat(billedamountelm.value);
     let isvalid = Number.isSafeInteger(billedamount);
+    billedamountelm.classList.remove("is-invalid", "is-valid");
     if (isvalid && billedamount >= 0) {
       console.log("valid amount to bill");
-      billedamountelm.classList.remove("is-invalid");
       billedamountelm.classList.add("is-valid");
-      resetall();
     } else {
       console.log("invalid amount to bill");
-      billedamountelm.classList.remove("is-valid");
       billedamountelm.classList.add("is-invalid");
-      resetall();
     }
   }
 
+  resetall();
   calculatedemandcharge();
 }
 
@@ -161,15 +155,16 @@ function calculatedemandcharge() {
       document.getElementById("demandload").innerHTML =
         sload + " x " + demandcharge;
     } else {
-      demandcost = sload * demandcharge + (cload - sload) * 2 * demandcharge;
+      demandcost = sload * demandcharge + (cload - sload) * 2 * demandcharge; ///two times panel demand charge
       document.getElementById("demandload").innerHTML =
         sload +
         " x " +
         demandcharge +
-        " + " +
+        "<span class='text-danger'> + " +
         (cload - sload) +
         " x 2 x " +
-        demandcharge;
+        demandcharge +
+        "</span>";
     }
 
     document.getElementById("demandcost").innerHTML = demandcost.toFixed(2);
@@ -181,14 +176,14 @@ function calculatedemandcharge() {
   }
 
   let energycost = 0;
+  resetall();
   ///calling units to bill if valid
   let billedunitelm = document.getElementById("billedunit");
   let billedunit = parseFloat(billedunitelm.value);
   let isvalid = Number.isSafeInteger(billedunit);
   if (isvalid && billedunit >= 0) {
-    billedunitelm.classList.remove("is-invalid");
+    billedunitelm.classList.remove("is-invalid", "is-valid");
     billedunitelm.classList.add("is-valid");
-    resetall();
     energycost = calculateunitbill(billedunit);
   }
 
@@ -197,9 +192,8 @@ function calculatedemandcharge() {
   let billedamount = parseFloat(billedamountelm.value);
   let isvalid1 = Number.isSafeInteger(billedamount);
   if (isvalid1 && billedamount >= 0) {
-    billedamountelm.classList.remove("is-invalid");
+    billedamountelm.classList.remove("is-invalid", "is-valid");
     billedamountelm.classList.add("is-valid");
-    resetall();
     energycost = calculateamountbill(billedamount, demandcost);
   }
 
@@ -208,7 +202,6 @@ function calculatedemandcharge() {
 }
 
 ///function to generate bill, given units to bill
-///will be called from calculatedemandcharge
 function calculateunitbill(units) {
   let energycost = 0.0;
 
@@ -293,7 +286,6 @@ function calculateunitbill(units) {
 }
 
 ///function to generate bill, given amount to bill
-///will be called from calculatedemandcharge
 function calculateamountbill(totalamounts, demandcost) {
   let amounts = totalamounts;
   if (!isNaN(demandcost)) {
