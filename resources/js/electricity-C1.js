@@ -21,8 +21,10 @@ isdoubleregister.addEventListener("change", singledoubleregister);
 function singledoubleregister() {
   if (isdoubleregister.checked) {
     resetdoubleregisterview();
+    resetdr();
   } else {
     resetsingleregisterview();
+    resetsr();
   }
 }
 
@@ -38,8 +40,12 @@ function resetdoubleregisterview() {
     .getElementById("pkbilledunit")
     .classList.remove("is-valid", "is-invalid");
 
-  document.getElementById("offpklabel").classList.remove("text-secondary");
-  document.getElementById("pklabel").classList.remove("text-secondary");
+  document
+    .getElementById("offpklabel")
+    .classList.remove("text-secondary", "text-black");
+  document
+    .getElementById("pklabel")
+    .classList.remove("text-secondary", "text-black");
   document.getElementById("offpklabel").classList.add("text-black");
   document.getElementById("pklabel").classList.add("text-black");
 
@@ -54,7 +60,9 @@ function resetdoubleregisterview() {
     .getElementById("srbilledunit")
     .classList.remove("is-valid", "is-invalid");
 
-  document.getElementById("srlabel").classList.remove("text-black");
+  document
+    .getElementById("srlabel")
+    .classList.remove("text-black", "text-secondary");
   document.getElementById("srlabel").classList.add("text-secondary");
 
   document.getElementById("srunit").innerHTML = "-";
@@ -73,8 +81,12 @@ function resetsingleregisterview() {
     .getElementById("pkbilledunit")
     .classList.remove("is-valid", "is-invalid");
 
-  document.getElementById("offpklabel").classList.remove("text-black");
-  document.getElementById("pklabel").classList.remove("text-black");
+  document
+    .getElementById("offpklabel")
+    .classList.remove("text-black", "text-secondary");
+  document
+    .getElementById("pklabel")
+    .classList.remove("text-black", "text-secondary");
   document.getElementById("offpklabel").classList.add("text-secondary");
   document.getElementById("pklabel").classList.add("text-secondary");
 
@@ -89,7 +101,9 @@ function resetsingleregisterview() {
     .getElementById("srbilledunit")
     .classList.remove("is-valid", "is-invalid");
 
-  document.getElementById("srlabel").classList.remove("text-secondary");
+  document
+    .getElementById("srlabel")
+    .classList.remove("text-secondary", "text-black");
   document.getElementById("srlabel").classList.add("text-black");
 
   document.getElementById("srunit").innerHTML = "";
@@ -101,14 +115,14 @@ initializeFields();
 
 function initializeFields() {
   singledoubleregister();
-  loadLtBRates();
+  loadLtC1Rates();
   document.getElementById("sload").value = 1;
   document.getElementById("cload").value = 1;
   calculatedemandcharge();
 }
 
 ///client side energy rate show section
-function loadLtBRates() {
+function loadLtC1Rates() {
   for (let key in lt_c1) {
     document.getElementById(key).innerHTML = lt_c1[key].toFixed(2); ///upto 2 decimal places
   }
@@ -122,13 +136,12 @@ sloadelm.addEventListener("change", validateSLoad);
 function validateSLoad() {
   let sload = parseFloat(sloadelm.value);
   let isvalid = Number.isSafeInteger(sload);
+  sloadelm.classList.remove("is-invalid", "is-valid");
   if (isvalid && sload >= 1) {
     console.log("valid sanction load");
-    sloadelm.classList.remove("is-invalid");
     sloadelm.classList.add("is-valid");
   } else {
     console.log("invalid sanction load");
-    sloadelm.classList.remove("is-valid");
     sloadelm.classList.add("is-invalid");
   }
 
@@ -143,13 +156,12 @@ cloadelm.addEventListener("change", validateCLoad);
 function validateCLoad() {
   let cload = parseFloat(cloadelm.value);
   let isvalid = Number.isSafeInteger(cload);
+  cloadelm.classList.remove("is-invalid", "is-valid");
   if (isvalid && cload >= 1) {
     console.log("valid connected load");
-    cloadelm.classList.remove("is-invalid");
     cloadelm.classList.add("is-valid");
   } else {
     console.log("invalid connected load");
-    cloadelm.classList.remove("is-valid");
     cloadelm.classList.add("is-invalid");
   }
 
@@ -167,13 +179,12 @@ function srvalidateUnit() {
   } else {
     let srbilledunit = parseFloat(srbilledunitelm.value);
     let issrvalid = Number.isSafeInteger(srbilledunit);
+    srbilledunitelm.classList.remove("is-invalid", "is-valid");
     if (issrvalid && srbilledunit >= 0) {
       console.log("valid sr units to bill");
-      srbilledunitelm.classList.remove("is-invalid");
       srbilledunitelm.classList.add("is-valid");
     } else {
       console.log("invalid sr units to bill");
-      srbilledunitelm.classList.remove("is-valid");
       srbilledunitelm.classList.add("is-invalid");
     }
   }
@@ -191,7 +202,7 @@ function resetsr() {
   }
 }
 
-///offpeak peak unit validation
+///offpeak & peak unit validation
 var offpkbilledunitelm = document.getElementById("offpkbilledunit");
 offpkbilledunitelm.addEventListener("keyup", drvalidateUnit);
 offpkbilledunitelm.addEventListener("change", drvalidateUnit);
@@ -201,20 +212,18 @@ pkbilledunitelm.addEventListener("keyup", drvalidateUnit);
 pkbilledunitelm.addEventListener("change", drvalidateUnit);
 
 function drvalidateUnit() {
-  console.log("validating dr inputs");
+  console.log("validating double register inputs");
   if (offpkbilledunitelm.value == "") {
     offpkbilledunitelm.classList.remove("is-invalid", "is-valid");
   } else {
     let offpkbilledunit = parseFloat(offpkbilledunitelm.value);
     let isoffpkvalid = Number.isSafeInteger(offpkbilledunit);
-
+    offpkbilledunitelm.classList.remove("is-invalid", "is-valid");
     if (isoffpkvalid && offpkbilledunit >= 0) {
       console.log("valid offpk units to bill");
-      offpkbilledunitelm.classList.remove("is-invalid");
       offpkbilledunitelm.classList.add("is-valid");
     } else {
       console.log("invalid offpk units to bill");
-      offpkbilledunitelm.classList.remove("is-valid");
       offpkbilledunitelm.classList.add("is-invalid");
     }
   }
@@ -224,14 +233,12 @@ function drvalidateUnit() {
   } else {
     let pkbilledunit = parseFloat(pkbilledunitelm.value);
     let ispkvalid = Number.isSafeInteger(pkbilledunit);
-
+    pkbilledunitelm.classList.remove("is-invalid", "is-valid");
     if (ispkvalid && pkbilledunit >= 0) {
       console.log("valid pk units to bill");
-      pkbilledunitelm.classList.remove("is-invalid");
       pkbilledunitelm.classList.add("is-valid");
     } else {
       console.log("invalid pk units to bill");
-      pkbilledunitelm.classList.remove("is-valid");
       pkbilledunitelm.classList.add("is-invalid");
     }
   }
@@ -272,15 +279,16 @@ function calculatedemandcharge() {
       document.getElementById("demandload").innerHTML =
         sload + " x " + demandcharge;
     } else {
-      demandcost = sload * demandcharge + (cload - sload) * 2 * demandcharge;
+      demandcost = sload * demandcharge + (cload - sload) * 2 * demandcharge; ///two times panel demand charge
       document.getElementById("demandload").innerHTML =
         sload +
         " x " +
         demandcharge +
-        " + " +
+        "<span class='text-danger'> + " +
         (cload - sload) +
         " x 2 x " +
-        demandcharge;
+        demandcharge +
+        "</span>";
     }
 
     document.getElementById("demandcost").innerHTML = demandcost.toFixed(2);
@@ -307,9 +315,9 @@ function calculatedemandcharge() {
       ispkvalid &&
       pkbilledunit >= 0
     ) {
-      offpkbilledunitelm.classList.remove("is-invalid");
+      offpkbilledunitelm.classList.remove("is-invalid", "is-valid");
       offpkbilledunitelm.classList.add("is-valid");
-      pkbilledunitelm.classList.remove("is-invalid");
+      pkbilledunitelm.classList.remove("is-invalid", "is-valid");
       pkbilledunitelm.classList.add("is-valid");
 
       energycost = doubleregisterunitbill(offpkbilledunit, pkbilledunit);
@@ -321,7 +329,7 @@ function calculatedemandcharge() {
     let issrvalid = Number.isSafeInteger(srbilledunit);
 
     if (issrvalid && srbilledunit >= 0) {
-      srbilledunitelm.classList.remove("is-invalid");
+      srbilledunitelm.classList.remove("is-invalid", "is-valid");
       srbilledunitelm.classList.add("is-valid");
 
       energycost = singleregisterunitbill(srbilledunit);
@@ -332,8 +340,7 @@ function calculatedemandcharge() {
   updatetotalbill(demandcost, energycost);
 }
 
-///function to generate bill, given units to bill
-///will be called from calculatedemandcharge
+///function to generate double register bill, given units to bill
 function doubleregisterunitbill(offpkunit, pkunit) {
   let offpkenergycost = offpkunit * lt_c1["offpkrate"];
   let pkenergycost = pkunit * lt_c1["pkrate"];
@@ -348,11 +355,13 @@ function doubleregisterunitbill(offpkunit, pkunit) {
   document.getElementById("srunit").innerHTML = "-";
   document.getElementById("srbill").innerHTML = "-";
 
+  document.getElementById("energyunit").innerHTML = offpkunit + pkunit;
   document.getElementById("energycost").innerHTML = energycost.toFixed(2);
 
   return energycost;
 }
 
+///function to generate single register bill, given units to bill
 function singleregisterunitbill(srunit) {
   let srenergycost = srunit * lt_c1["srrate"];
 
@@ -366,6 +375,7 @@ function singleregisterunitbill(srunit) {
   document.getElementById("srunit").innerHTML = srunit;
   document.getElementById("srbill").innerHTML = srenergycost.toFixed(2);
 
+  document.getElementById("energyunit").innerHTML = srunit;
   document.getElementById("energycost").innerHTML = energycost.toFixed(2);
 
   return energycost;
