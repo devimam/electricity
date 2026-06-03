@@ -1,19 +1,19 @@
 /*
 Title: electricity
 Author: Mohammad Imam Hossain
-Update Date: 29/02/2024
+Update Date: 03/06/2026
 All rights reserved
 */
 
 ///energy rate update section
 var lt_a = {
-  lifelinerate: 4.63,
-  step1rate: 5.26,
-  step2rate: 7.2,
-  step3rate: 7.59,
-  step4rate: 8.02,
-  step5rate: 12.67,
-  step6rate: 14.61,
+  lifelinerate: 5.32,
+  step1rate: 6.18,
+  step2rate: 8.50,
+  step3rate: 9.10,
+  step4rate: 9.62,
+  step5rate: 15.01,
+  step6rate: 17.35,
 };
 
 var demandcharge = 42; ///per kW for LT-A

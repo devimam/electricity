@@ -7,10 +7,10 @@ All rights reserved
 
 ///energy rate update section
 var lt_d3 = {
-  srrate: 9.62,
-  offpkrate: 8.66,
-  pkrate: 12.14,
-  soffpkrate: 7.68,
+  srrate: 11.36,
+  offpkrate: 10.22,
+  pkrate: 14.20,
+  soffpkrate: 9.09,
 };
 
 var demandcharge = 90; ///per kW for LT-D3

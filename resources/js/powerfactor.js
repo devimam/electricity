@@ -12,7 +12,7 @@ All rights reserved
 
   function validatepfoffpeak() {
     let pfoffpeak = parseFloat(pfoffpeakelm.value);
-    let isvalid = Number.isSafeInteger(pfoffpeak);
+    let isvalid = !Number.isNaN(pfoffpeak);
     if (isvalid && pfoffpeak >= 0) {
       console.log("valid pf offpeak unit");
       pfoffpeakelm.classList.remove("is-invalid");
@@ -32,7 +32,7 @@ All rights reserved
 
   function validatepfpeak() {
     let pfpeak = parseFloat(pfpeakelm.value);
-    let isvalid = Number.isSafeInteger(pfpeak);
+    let isvalid = !Number.isNaN(pfpeak);
     if (isvalid && pfpeak >= 0) {
       console.log("valid pf peak unit");
       pfpeakelm.classList.remove("is-invalid");
@@ -52,7 +52,7 @@ All rights reserved
 
   function validatepfvar() {
     let pfvar = parseFloat(pfvarelm.value);
-    let isvalid = Number.isSafeInteger(pfvar);
+    let isvalid = !Number.isNaN(pfvar);
     if (isvalid && pfvar >= 0) {
       console.log("valid var unit");
       pfvarelm.classList.remove("is-invalid");
@@ -70,15 +70,15 @@ All rights reserved
   function calculatepf() {
     let pfoffpeakelm = document.getElementById("pfoffpeak");
     let pfoffpeak = parseFloat(pfoffpeakelm.value);
-    let isvalidoffpeak = Number.isSafeInteger(pfoffpeak);
+    let isvalidoffpeak = !Number.isNaN(pfoffpeak);
 
     let pfpeakelm = document.getElementById("pfpeak");
     let pfpeak = parseFloat(pfpeakelm.value);
-    let isvalidpeak = Number.isSafeInteger(pfpeak);
+    let isvalidpeak = !Number.isNaN(pfpeak);
 
     let pfvarelm = document.getElementById("pfvar");
     let pfvar = parseFloat(pfvarelm.value);
-    let isvalidvar = Number.isSafeInteger(pfvar);
+    let isvalidvar = !Number.isNaN(pfvar);
 
     document
       .getElementById("pfcard")

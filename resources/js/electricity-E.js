@@ -7,9 +7,9 @@ All rights reserved
 
 ///energy rate update section
 var lt_e = {
-  srrate: 13.01,
-  offpkrate: 11.71,
-  pkrate: 15.62,
+  srrate: 15.36,
+  offpkrate: 13.82,
+  pkrate: 18.43,
 };
 
 var demandcharge = 90; ///per kW for LT-E
