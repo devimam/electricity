@@ -7,8 +7,8 @@ All rights reserved
 
 ///energy rate update section
 var lt_a = {
-  lifelinerate: 5.32,
-  step1rate: 6.18,
+  lifelinerate: 4.63,
+  step1rate: 5.26,
   step2rate: 8.50,
   step3rate: 9.10,
   step4rate: 9.62,
