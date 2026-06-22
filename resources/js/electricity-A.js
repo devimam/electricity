@@ -17,18 +17,20 @@ var lt_a = {
 };
 
 var demandcharge = 42; ///per kW for LT-A
+var minSLoad=1;
+var minCLoad=0;
 
 ///initializing all the fields
 initializeFields();
 
 function initializeFields() {
   loadLtARates();
-  document.getElementById("sload").value = 1;
-  document.getElementById("cload").value = 1;
-  calculatedemandcharge();
+  document.getElementById("sload").value = minSLoad;
+  document.getElementById("cload").value = minCLoad;
+  calculateDemandCharge();
 }
 
-///client side energy rate show section
+///frontend energy rate show section
 function loadLtARates() {
   for (let key in lt_a) {
     document.getElementById(key).innerHTML = lt_a[key].toFixed(2); ///upto 2 decimal places
@@ -44,7 +46,7 @@ function validateSLoad() {
   let sload = parseFloat(sloadelm.value);
   let isvalid = Number.isSafeInteger(sload);
   sloadelm.classList.remove("is-invalid", "is-valid");
-  if (isvalid && sload >= 1) {
+  if (isvalid && sload >= minSLoad) {
     console.log("valid sanction load");
     sloadelm.classList.add("is-valid");
   } else {
@@ -52,7 +54,7 @@ function validateSLoad() {
     sloadelm.classList.add("is-invalid");
   }
 
-  calculatedemandcharge();
+  calculateDemandCharge();
 }
 
 ///connected load validation
@@ -64,7 +66,7 @@ function validateCLoad() {
   let cload = parseFloat(cloadelm.value);
   let isvalid = Number.isSafeInteger(cload);
   cloadelm.classList.remove("is-invalid", "is-valid");
-  if (isvalid && cload >= 1) {
+  if (isvalid && cload >= minCLoad) {
     console.log("valid connected load");
     cloadelm.classList.add("is-valid");
   } else {
@@ -72,7 +74,7 @@ function validateCLoad() {
     cloadelm.classList.add("is-invalid");
   }
 
-  calculatedemandcharge();
+  calculateDemandCharge();
 }
 
 ///units to bill validation
@@ -104,7 +106,7 @@ function validateUnit() {
   }
 
   resetall();
-  calculatedemandcharge();
+  calculateDemandCharge();
 }
 
 ///amount to bill validation
@@ -136,19 +138,19 @@ function validateAmount() {
   }
 
   resetall();
-  calculatedemandcharge();
+  calculateDemandCharge();
 }
 
-///first step - demand cost calculate section
-function calculatedemandcharge() {
+///first step - demand cost calculation section
+function calculateDemandCharge() {
   let sload = parseFloat(document.getElementById("sload").value);
   let isvalids = Number.isSafeInteger(sload);
 
   let cload = parseFloat(document.getElementById("cload").value);
   let isvalidc = Number.isSafeInteger(cload);
 
-  let demandcost = 0;
-  if (isvalids && isvalidc && sload >= 1 && cload >= 1) {
+  let demandcost = NaN;
+  if (isvalids && isvalidc && sload >= minSLoad && cload >= minCLoad) {
     console.log("valid demand charge found");
     if (sload >= cload) {
       demandcost = sload * demandcharge;
@@ -170,12 +172,12 @@ function calculatedemandcharge() {
     document.getElementById("demandcost").innerHTML = demandcost.toFixed(2);
   } else {
     console.log("invalid demand charge");
-    document.getElementById("demandload").innerHTML = "";
+    document.getElementById("demandload").innerHTML = "<span class='text-danger'>-</span>";
     document.getElementById("demandcost").innerHTML =
-      "<span class='text-danger'>????</span>";
+      "<span class='text-danger'>-</span>";
   }
 
-  let energycost = 0;
+  let energycost = NaN;
   resetall();
   ///calling units to bill if valid
   let billedunitelm = document.getElementById("billedunit");
@@ -184,7 +186,7 @@ function calculatedemandcharge() {
   if (isvalid && billedunit >= 0) {
     billedunitelm.classList.remove("is-invalid", "is-valid");
     billedunitelm.classList.add("is-valid");
-    energycost = calculateunitbill(billedunit);
+    energycost = calculateUnitBill(billedunit);
   }
 
   ///calling amounts to bill if valid
@@ -194,7 +196,7 @@ function calculatedemandcharge() {
   if (isvalid1 && billedamount >= 0) {
     billedamountelm.classList.remove("is-invalid", "is-valid");
     billedamountelm.classList.add("is-valid");
-    energycost = calculateamountbill(billedamount, demandcost);
+    energycost = calculateAmountBill(billedamount, demandcost);
   }
 
   ///updating the total bill amount
@@ -202,7 +204,7 @@ function calculatedemandcharge() {
 }
 
 ///function to generate bill, given units to bill
-function calculateunitbill(units) {
+function calculateUnitBill(units) {
   let energycost = 0.0;
 
   if (units <= 50) {
@@ -286,13 +288,18 @@ function calculateunitbill(units) {
 }
 
 ///function to generate bill, given amount to bill
-function calculateamountbill(totalamounts, demandcost) {
+function calculateAmountBill(totalamounts, demandcost) {
   let amounts = totalamounts;
   if (!isNaN(demandcost)) {
     amounts = (totalamounts - demandcost * 1.05) / 1.05; ///backtracking energy amount
   }
+  else{
+    return NaN; /// energy cost can't be backtracked as demadcost is NaN
+  }
 
-  if (amounts < 0) amounts = 0;
+  if (amounts < 0){
+    return NaN; /// energy cost can't be backtracked as energycost amount is negative
+  }
 
   let energycost = 0.0;
   let energyunits = 0.0;
@@ -414,9 +421,11 @@ function updatetotalbill(demandcost, energycost) {
     document.getElementById("billtotal").innerHTML = billtotal.toFixed(2);
   } else {
     console.log("invalid everycost or demandcost");
-    document.getElementById("principal").innerHTML = "";
-    document.getElementById("vat").innerHTML = "";
-    document.getElementById("billtotal").innerHTML = "";
+    document.getElementById("energyunit").innerHTML = "<span class='text-danger'>-</span>";
+    document.getElementById("energycost").innerHTML = "<span class='text-danger'>-</span>";
+    document.getElementById("principal").innerHTML = "<span class='text-danger'>-</span>";
+    document.getElementById("vat").innerHTML = "<span class='text-danger'>-</span>";
+    document.getElementById("billtotal").innerHTML = "<span class='text-danger'>-</span>";
   }
 }
 
