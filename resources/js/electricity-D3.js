@@ -21,6 +21,9 @@ var minCLoad=0;
 var isdoubleregister = document.getElementById("dreg");
 isdoubleregister.addEventListener("change", singledoubleregister);
 
+var issingleregister = document.getElementById("sreg");
+issingleregister.addEventListener("change", singledoubleregister);
+
 function singledoubleregister() {
   if (isdoubleregister.checked) {
     resetdoubleregisterview();

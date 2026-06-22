@@ -373,18 +373,37 @@
           <hr />
         </div>
 
-        <form class="row mb-2 align-items-end">
+        <form class="row mb-2 align-items-start">
           <div class="col-md-6 mb-md-2">
             <div class="row mb-2 justify-content-center">
               <div class="col-auto">
-                <div class="form-check form-switch">
+                <div
+                  class="btn-group"
+                  role="group"
+                  aria-label="Basic radio toggle button group for single or double register selection"
+                >
                   <input
-                    class="form-check-input"
-                    type="checkbox"
-                    role="switch"
-                    id="dreg"
+                    type="radio"
+                    class="btn-check"
+                    name="regcheck"
+                    id="sreg"
+                    autocomplete="off"
+                    value="sreg"
+                    checked
                   />
-                  <label class="form-check-label" for="dreg"
+                  <label class="btn btn-sm btn-outline-secondary" for="sreg"
+                    >Single Register</label
+                  >
+
+                  <input
+                    type="radio"
+                    class="btn-check"
+                    name="regcheck"
+                    id="dreg"
+                    value="dreg"
+                    autocomplete="off"
+                  />
+                  <label class="btn btn-sm btn-outline-secondary" for="dreg"
                     >Double Register</label
                   >
                 </div>
@@ -446,6 +465,18 @@
           </div>
 
           <div class="col-md-6 mb-2">
+            <div class="row mb-2 justify-content-center">
+              <div class="col-auto">
+                <div
+                  class="btn-group invisible d-none d-md-block"
+                  role="group"
+                  aria-label="Basic radio toggle button group for single or double register selection"
+                >
+                  <input type="radio" class="btn-check" />
+                  <label class="btn btn-sm btn-outline-secondary">Demo</label>
+                </div>
+              </div>
+            </div>
             <div class="row mb-2 justify-content-center">
               <!-- sanctioned load/connected load section -->
               <div class="col-auto mb-2">
