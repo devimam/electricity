@@ -1,7 +1,7 @@
 /*
 Title: electricity
 Author: Mohammad Imam Hossain
-Update Date: 03/03/2024
+Update Date: 03/06/2026
 All rights reserved
 */
 
@@ -13,6 +13,8 @@ var lt_c2 = {
 };
 
 var demandcharge = 120; ///per kW for LT-C2
+var minSLoad=1;
+var minCLoad=0;
 
 ///single or double register selection
 var isdoubleregister = document.getElementById("dreg");
@@ -116,9 +118,9 @@ initializeFields();
 function initializeFields() {
   singledoubleregister();
   loadLtC2Rates();
-  document.getElementById("sload").value = 1;
-  document.getElementById("cload").value = 1;
-  calculatedemandcharge();
+  document.getElementById("sload").value = minSLoad;
+  document.getElementById("cload").value = minCLoad;
+  calculateDemandCharge();
 }
 
 ///client side energy rate show section
@@ -137,7 +139,7 @@ function validateSLoad() {
   let sload = parseFloat(sloadelm.value);
   let isvalid = Number.isSafeInteger(sload);
   sloadelm.classList.remove("is-invalid", "is-valid");
-  if (isvalid && sload >= 1) {
+  if (isvalid && sload >= minSLoad) {
     console.log("valid sanction load");
     sloadelm.classList.add("is-valid");
   } else {
@@ -145,7 +147,7 @@ function validateSLoad() {
     sloadelm.classList.add("is-invalid");
   }
 
-  calculatedemandcharge();
+  calculateDemandCharge();
 }
 
 ///connected load validation
@@ -157,7 +159,7 @@ function validateCLoad() {
   let cload = parseFloat(cloadelm.value);
   let isvalid = Number.isSafeInteger(cload);
   cloadelm.classList.remove("is-invalid", "is-valid");
-  if (isvalid && cload >= 1) {
+  if (isvalid && cload >= minCLoad) {
     console.log("valid connected load");
     cloadelm.classList.add("is-valid");
   } else {
@@ -165,7 +167,7 @@ function validateCLoad() {
     cloadelm.classList.add("is-invalid");
   }
 
-  calculatedemandcharge();
+  calculateDemandCharge();
 }
 
 ///units to bill validation
@@ -190,7 +192,7 @@ function srvalidateUnit() {
   }
 
   resetsr();
-  calculatedemandcharge();
+  calculateDemandCharge();
 }
 
 ///reset sr fields
@@ -200,6 +202,8 @@ function resetsr() {
   for (let val of fieldnames) {
     document.getElementById(val).innerHTML = "";
   }
+  document.getElementById("energyunit").innerHTML="<span class='text-danger'>-</span>";
+  document.getElementById("energycost").innerHTML="<span class='text-danger'>-</span>";
 }
 
 ///offpeak & peak unit validation
@@ -244,7 +248,7 @@ function drvalidateUnit() {
   }
 
   resetdr();
-  calculatedemandcharge();
+  calculateDemandCharge();
 }
 
 ///reset sr fields
@@ -261,18 +265,21 @@ function resetdr() {
   for (let val of fieldnames) {
     document.getElementById(val).innerHTML = "";
   }
+
+  document.getElementById("energyunit").innerHTML="<span class='text-danger'>-</span>";
+  document.getElementById("energycost").innerHTML="<span class='text-danger'>-</span>";
 }
 
 ///first step - demand cost calculate section
-function calculatedemandcharge() {
+function calculateDemandCharge() {
   let sload = parseFloat(document.getElementById("sload").value);
   let isvalids = Number.isSafeInteger(sload);
 
   let cload = parseFloat(document.getElementById("cload").value);
   let isvalidc = Number.isSafeInteger(cload);
 
-  let demandcost = 0;
-  if (isvalids && isvalidc && sload >= 1 && cload >= 1) {
+  let demandcost = NaN;
+  if (isvalids && isvalidc && sload >= minSLoad && cload >= minCLoad) {
     console.log("valid demand charge found");
     if (sload >= cload) {
       demandcost = sload * demandcharge;
@@ -294,12 +301,12 @@ function calculatedemandcharge() {
     document.getElementById("demandcost").innerHTML = demandcost.toFixed(2);
   } else {
     console.log("invalid demand charge");
-    document.getElementById("demandload").innerHTML = "";
+    document.getElementById("demandload").innerHTML = "<span class='text-danger'>-</span>";
     document.getElementById("demandcost").innerHTML =
-      "<span class='text-danger'>????</span>";
+      "<span class='text-danger'>-</span>";
   }
 
-  let energycost = 0;
+  let energycost = NaN;
   if (document.getElementById("dreg").checked) {
     ///double register billing section
     let offpkbilledunitelm = document.getElementById("offpkbilledunit");
@@ -334,6 +341,11 @@ function calculatedemandcharge() {
 
       energycost = singleregisterunitbill(srbilledunit);
     }
+  }
+
+  if(isNaN(energycost)){
+    document.getElementById("energyunit").innerHTML = "<span class='text-danger'>-</span>";
+    document.getElementById("energycost").innerHTML = "<span class='text-danger'>-</span>";
   }
 
   ///updating the total bill amount
@@ -395,8 +407,8 @@ function updatetotalbill(demandcost, energycost) {
     document.getElementById("billtotal").innerHTML = billtotal.toFixed(2);
   } else {
     console.log("invalid everycost or demandcost");
-    document.getElementById("principal").innerHTML = "";
-    document.getElementById("vat").innerHTML = "";
-    document.getElementById("billtotal").innerHTML = "";
+    document.getElementById("principal").innerHTML = "<span class='text-danger'>-</span>";
+    document.getElementById("vat").innerHTML = "<span class='text-danger'>-</span>";
+    document.getElementById("billtotal").innerHTML = "<span class='text-danger'>-</span>";
   }
 }
