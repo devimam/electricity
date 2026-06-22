@@ -199,6 +199,11 @@ function calculateDemandCharge() {
     energycost = calculateAmountBill(billedamount, demandcost);
   }
 
+  if(isNaN(energycost)){
+    document.getElementById("energyunit").innerHTML = "<span class='text-danger'>-</span>";
+    document.getElementById("energycost").innerHTML = "<span class='text-danger'>-</span>";
+  }
+
   ///updating the total bill amount
   updatetotalbill(demandcost, energycost);
 }
@@ -421,8 +426,6 @@ function updatetotalbill(demandcost, energycost) {
     document.getElementById("billtotal").innerHTML = billtotal.toFixed(2);
   } else {
     console.log("invalid everycost or demandcost");
-    document.getElementById("energyunit").innerHTML = "<span class='text-danger'>-</span>";
-    document.getElementById("energycost").innerHTML = "<span class='text-danger'>-</span>";
     document.getElementById("principal").innerHTML = "<span class='text-danger'>-</span>";
     document.getElementById("vat").innerHTML = "<span class='text-danger'>-</span>";
     document.getElementById("billtotal").innerHTML = "<span class='text-danger'>-</span>";
