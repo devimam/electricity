@@ -13,7 +13,7 @@ var lt_c1 = {
 };
 
 var demandcharge = 48; ///per kW for LT-C1
-var minSLoad=1;
+var minSLoad=0;
 var minCLoad=0;
 
 ///single or double register selection

@@ -14,7 +14,7 @@ var lt_d3 = {
 };
 
 var demandcharge = 90; ///per kW for LT-D3
-var minSLoad=1;
+var minSLoad=0;
 var minCLoad=0;
 
 ///single or double register selection

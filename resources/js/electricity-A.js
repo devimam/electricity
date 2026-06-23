@@ -17,7 +17,7 @@ var lt_a = {
 };
 
 var demandcharge = 42; ///per kW for LT-A
-var minSLoad=1;
+var minSLoad=0;
 var minCLoad=0;
 
 ///initializing all the fields

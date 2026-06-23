@@ -13,7 +13,7 @@ var lt_e = {
 };
 
 var demandcharge = 90; ///per kW for LT-E
-var minSLoad=1;
+var minSLoad=0;
 var minCLoad=0;
 
 ///single or double register selection
