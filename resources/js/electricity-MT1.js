@@ -10,6 +10,12 @@ var mt_1 = {
   srrate: 12.5,
   offpkrate: 11.25,
   pkrate: 15.62,
+  srpfcrate: 12.5,
+  offpkpfcrate: 11.25,
+  pkpfcrate: 15.62,
+  srxfrate: 12.5,
+  offpkxfrate: 11.25,
+  pkxfrate: 15.62,
 };
 
 var demandCharge = 90; ///per kW for MT-1
@@ -47,8 +53,8 @@ function loadMT1Rates() {
 
 ///kWh single register or off-peak units to bill validation
 var kwhoffpkunitelm = document.getElementById("kwhoffpkbilledunit");
-kwhoffpkunitelm.addEventListener("keyup", kwhoffpkvalidateUnit);
-kwhoffpkunitelm.addEventListener("change", kwhoffpkvalidateUnit);
+kwhoffpkunitelm.addEventListener("keyup", calculateDemandCharge);
+kwhoffpkunitelm.addEventListener("change", calculateDemandCharge);
 
 function kwhoffpkvalidateUnit() {
   let kwhoffpkbilledunitval = Number(kwhoffpkunitelm.value);
@@ -61,9 +67,11 @@ function kwhoffpkvalidateUnit() {
   ) {
     console.log("valid single register or off-peak units to bill");
     kwhoffpkunitelm.classList.add("is-valid");
+    return kwhoffpkbilledunitval;
   } else {
     console.log("invalid single register or off-peak units to bill");
     kwhoffpkunitelm.classList.add("is-invalid");
+    return NaN;
   }
 
   // calculateDemandCharge();
@@ -71,8 +79,8 @@ function kwhoffpkvalidateUnit() {
 
 ///kWh peak units to bill validation
 var kwhpkunitelm = document.getElementById("kwhpkbilledunit");
-kwhpkunitelm.addEventListener("keyup", kwhpkvalidateUnit);
-kwhpkunitelm.addEventListener("change", kwhpkvalidateUnit);
+kwhpkunitelm.addEventListener("keyup", calculateDemandCharge);
+kwhpkunitelm.addEventListener("change", calculateDemandCharge);
 
 function kwhpkvalidateUnit() {
   if (kwhpkunitelm.value == "") {
@@ -84,9 +92,11 @@ function kwhpkvalidateUnit() {
     if (!isNaN(kwhpkbilledunitval) && kwhpkbilledunitval >= 0) {
       console.log("valid peak units to bill");
       kwhpkunitelm.classList.add("is-valid");
+      return kwhpkbilledunitval;
     } else {
       console.log("invalid peak units to bill");
       kwhpkunitelm.classList.add("is-invalid");
+      return NaN;
     }
   }
 
@@ -191,23 +201,25 @@ function validateSLoad() {
 
 //kwhomf units to bill
 var kwhomfelm = document.getElementById("kwhomf");
-kwhomfelm.addEventListener("keyup", kwhomfvalidateUnit);
-kwhomfelm.addEventListener("change", kwhomfvalidateUnit);
+kwhomfelm.addEventListener("keyup", calculateDemandCharge);
+kwhomfelm.addEventListener("change", calculateDemandCharge);
 
 function kwhomfvalidateUnit() {
   let kwhomfelmval = Number(kwhomfelm.value);
   // let isvalid = Number.isSafeInteger(kwbilledunit);
   kwhomfelm.classList.remove("is-invalid", "is-valid");
   if (
-    kkwhomfelm.value != "" &&
+    kwhomfelm.value != "" &&
     !isNaN(kwhomfelmval) &&
     kwhomfelmval >= minOMF
   ) {
     console.log("valid omf units to bill");
     kwhomfelm.classList.add("is-valid");
+    return kwhomfelmval;
   } else {
     console.log("invalid omf units to bill");
     kwhomfelm.classList.add("is-invalid");
+    return NaN;
   }
 
   // calculateDemandCharge();
@@ -297,52 +309,66 @@ function calculateDemandCharge() {
       "<span class='text-danger'>-</span>";
   }
 
+  var energycost=NaN;
+  var energyunit=NaN;
+
+  //calculating regular enercy unit and energy charge
+  var offpkunit=kwhoffpkvalidateUnit();
+  var pkunit=kwhpkvalidateUnit();
+  var kwhomfval=kwhomfvalidateUnit();
+  if(!isNaN(offpkunit) && !isNaN(pkunit) && !isNaN(kwhomfval)){
+    var finaloffpkunit = offpkunit*kwhomfval; var finaloffpkcost=finaloffpkunit*mt_1["offpkrate"];
+    var finalpkunit = pkunit*kwhomfval; var finalpkcost=finalpkunit*mt_1["pkrate"];
+    //double register meter
+    document.getElementById("srunit").innerHTML="<span class='text-danger'>-</span>";
+    document.getElementById("srbill").innerHTML="<span class='text-danger'>-</span>";
+    document.getElementById("offpkunit").innerHTML=finaloffpkunit.toFixed(2);
+    document.getElementById("offpkbill").innerHTML=finaloffpkcost.toFixed(2);
+    document.getElementById("pkunit").innerHTML=finalpkunit.toFixed(2);
+    document.getElementById("pkbill").innerHTML=finalpkcost.toFixed(2);
+
+    if(isNaN(energyunit)){
+      energyunit=finaloffpkunit+finalpkunit;
+      energycost=finaloffpkcost+finalpkcost;
+    }
+    else{
+      energyunit+=(finaloffpkunit+finalpkunit);
+      energycost+=(finaloffpkcost+finalpkcost);
+    }
+  }
+  else if(!isNaN(kwhomfval) && !isNaN(offpkunit)){
+    var finalsrunit = offpkunit*kwhomfval; var finalsrcost=finalsrunit*mt_1["srrate"];
+    //single register meter
+    document.getElementById("srunit").innerHTML=finalsrunit.toFixed(2);
+    document.getElementById("srbill").innerHTML=finalsrcost.toFixed(2);
+    document.getElementById("offpkunit").innerHTML="<span class='text-danger'>-</span>";
+    document.getElementById("offpkbill").innerHTML="<span class='text-danger'>-</span>";
+    document.getElementById("pkunit").innerHTML="<span class='text-danger'>-</span>";
+    document.getElementById("pkbill").innerHTML="<span class='text-danger'>-</span>";
+
+    if(isNaN(energyunit)){
+      energyunit=finalsrunit;
+      energycost=finalsrcost;
+    }
+    else{
+      energyunit+=finalsrunit;
+      energycost+=finalsrcost;
+    }
+  }
+  else{
+    document.getElementById("srunit").innerHTML="<span class='text-danger'>-</span>";
+    document.getElementById("srbill").innerHTML="<span class='text-danger'>-</span>";
+    document.getElementById("offpkunit").innerHTML="<span class='text-danger'>-</span>";
+    document.getElementById("offpkbill").innerHTML="<span class='text-danger'>-</span>";
+    document.getElementById("pkunit").innerHTML="<span class='text-danger'>-</span>";
+    document.getElementById("pkbill").innerHTML="<span class='text-danger'>-</span>";
+  }
+
   ///updating the total bill amount
   // updatetotalbill(demandcost, energycost);
 }
 
 /*
-///function to generate double register bill, given units to bill
-function doubleregisterunitbill(offpkunit, pkunit) {
-  let offpkenergycost = offpkunit * lt_t["offpkrate"];
-  let pkenergycost = pkunit * lt_t["pkrate"];
-
-  let energycost = offpkenergycost + pkenergycost;
-
-  document.getElementById("offpkunit").innerHTML = offpkunit;
-  document.getElementById("offpkbill").innerHTML = offpkenergycost.toFixed(2);
-  document.getElementById("pkunit").innerHTML = pkunit;
-  document.getElementById("pkbill").innerHTML = pkenergycost.toFixed(2);
-
-  document.getElementById("srunit").innerHTML = "-";
-  document.getElementById("srbill").innerHTML = "-";
-
-  document.getElementById("energyunit").innerHTML = offpkunit + pkunit;
-  document.getElementById("energycost").innerHTML = energycost.toFixed(2);
-
-  return energycost;
-}
-
-///function to generate single register bill, given units to bill
-function singleregisterunitbill(srunit) {
-  let srenergycost = srunit * lt_t["srrate"];
-
-  let energycost = srenergycost;
-
-  document.getElementById("offpkunit").innerHTML = "-";
-  document.getElementById("offpkbill").innerHTML = "-";
-  document.getElementById("pkunit").innerHTML = "-";
-  document.getElementById("pkbill").innerHTML = "-";
-
-  document.getElementById("srunit").innerHTML = srunit;
-  document.getElementById("srbill").innerHTML = srenergycost.toFixed(2);
-
-  document.getElementById("energyunit").innerHTML = srunit;
-  document.getElementById("energycost").innerHTML = energycost.toFixed(2);
-
-  return energycost;
-}
-
 ///principal bill, vat and total bill update
 function updatetotalbill(demandcost, energycost) {
   if (!isNaN(energycost) && !isNaN(demandcost)) {
