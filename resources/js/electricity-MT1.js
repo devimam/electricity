@@ -208,11 +208,7 @@ function kwhomfvalidateUnit() {
   let kwhomfelmval = Number(kwhomfelm.value);
   // let isvalid = Number.isSafeInteger(kwbilledunit);
   kwhomfelm.classList.remove("is-invalid", "is-valid");
-  if (
-    kwhomfelm.value != "" &&
-    !isNaN(kwhomfelmval) &&
-    kwhomfelmval >= minOMF
-  ) {
+  if (kwhomfelm.value != "" && !isNaN(kwhomfelmval) && kwhomfelmval >= minOMF) {
     console.log("valid omf units to bill");
     kwhomfelm.classList.add("is-valid");
     return kwhomfelmval;
@@ -271,6 +267,13 @@ function kwomfvalidateUnit() {
   // calculateDemandCharge();
 }
 
+document
+  .getElementById("ltside")
+  .addEventListener("change", calculateDemandCharge);
+document
+  .getElementById("htside")
+  .addEventListener("change", calculateDemandCharge);
+
 ///first step - demand cost calculate section
 function calculateDemandCharge() {
   //Demand Charge Calculation Section
@@ -304,64 +307,156 @@ function calculateDemandCharge() {
   } else {
     //invalid demand calculation
     console.log("invalid demand charge");
-    document.getElementById("demandload").innerHTML = "<span class='text-danger'>-</span>";
+    document.getElementById("demandload").innerHTML =
+      "<span class='text-danger'>-</span>";
     document.getElementById("demandcost").innerHTML =
       "<span class='text-danger'>-</span>";
   }
 
-  var energycost=NaN;
-  var energyunit=NaN;
+  var energycost = NaN;
+  var energyunit = NaN;
 
   //calculating regular enercy unit and energy charge
-  var offpkunit=kwhoffpkvalidateUnit();
-  var pkunit=kwhpkvalidateUnit();
-  var kwhomfval=kwhomfvalidateUnit();
-  if(!isNaN(offpkunit) && !isNaN(pkunit) && !isNaN(kwhomfval)){
-    var finaloffpkunit = offpkunit*kwhomfval; var finaloffpkcost=finaloffpkunit*mt_1["offpkrate"];
-    var finalpkunit = pkunit*kwhomfval; var finalpkcost=finalpkunit*mt_1["pkrate"];
+  var offpkunit = kwhoffpkvalidateUnit();
+  var pkunit = kwhpkvalidateUnit();
+  var kwhomfval = kwhomfvalidateUnit();
+  if (!isNaN(offpkunit) && !isNaN(pkunit) && !isNaN(kwhomfval)) {
+    var finaloffpkunit = offpkunit * kwhomfval;
+    var finaloffpkcost = finaloffpkunit * mt_1["offpkrate"];
+    var finalpkunit = pkunit * kwhomfval;
+    var finalpkcost = finalpkunit * mt_1["pkrate"];
     //double register meter
-    document.getElementById("srunit").innerHTML="<span class='text-danger'>-</span>";
-    document.getElementById("srbill").innerHTML="<span class='text-danger'>-</span>";
-    document.getElementById("offpkunit").innerHTML=finaloffpkunit.toFixed(2);
-    document.getElementById("offpkbill").innerHTML=finaloffpkcost.toFixed(2);
-    document.getElementById("pkunit").innerHTML=finalpkunit.toFixed(2);
-    document.getElementById("pkbill").innerHTML=finalpkcost.toFixed(2);
+    document.getElementById("srunit").innerHTML =
+      "<span class='text-danger'>-</span>";
+    document.getElementById("srbill").innerHTML =
+      "<span class='text-danger'>-</span>";
+    document.getElementById("offpkunit").innerHTML = finaloffpkunit.toFixed(2);
+    document.getElementById("offpkbill").innerHTML = finaloffpkcost.toFixed(2);
+    document.getElementById("pkunit").innerHTML = finalpkunit.toFixed(2);
+    document.getElementById("pkbill").innerHTML = finalpkcost.toFixed(2);
 
-    if(isNaN(energyunit)){
-      energyunit=finaloffpkunit+finalpkunit;
-      energycost=finaloffpkcost+finalpkcost;
+    if (isNaN(energyunit)) {
+      energyunit = finaloffpkunit + finalpkunit;
+      energycost = finaloffpkcost + finalpkcost;
+    } else {
+      energyunit += finaloffpkunit + finalpkunit;
+      energycost += finaloffpkcost + finalpkcost;
     }
-    else{
-      energyunit+=(finaloffpkunit+finalpkunit);
-      energycost+=(finaloffpkcost+finalpkcost);
+
+    //transformer loss consideration
+    if (document.getElementById("ltside").checked) {
+      //consider transformer loss
+      var finalxfoffpkunit = offpkunit * kwhomfval * 0.025;
+      var finalxfoffpkcost = finalxfoffpkunit * mt_1["offpkrate"];
+      var finalxfpkunit = pkunit * kwhomfval * 0.025;
+      var finalxfpkcost = finalxfpkunit * mt_1["pkrate"];
+      
+      document.getElementById("srxfunit").innerHTML =
+        "<span class='text-danger'>-</span>";
+      document.getElementById("srxfbill").innerHTML =
+        "<span class='text-danger'>-</span>";
+      document.getElementById("offpkxfunit").innerHTML =
+        finalxfoffpkunit.toFixed(2);
+      document.getElementById("offpkxfbill").innerHTML =
+        finalxfoffpkcost.toFixed(2);
+      document.getElementById("pkxfunit").innerHTML = finalxfpkunit.toFixed(2);
+      document.getElementById("pkxfbill").innerHTML = finalxfpkcost.toFixed(2);
+
+      if (isNaN(energyunit)) {
+        energyunit = finalxfoffpkunit + finalxfpkunit;
+        energycost = finalxfoffpkcost + finalxfpkcost;
+      } else {
+        energyunit += finalxfoffpkunit + finalxfpkunit;
+        energycost += finalxfoffpkcost + finalxfpkcost;
+      }
+    } else {
+      //double register meter
+      document.getElementById("srxfunit").innerHTML =
+        "<span class='text-danger'>-</span>";
+      document.getElementById("srxfbill").innerHTML =
+        "<span class='text-danger'>-</span>";
+      document.getElementById("offpkxfunit").innerHTML =
+        "<span class='text-danger'>-</span>";
+      document.getElementById("offpkxfbill").innerHTML =
+        "<span class='text-danger'>-</span>";
+      document.getElementById("pkxfunit").innerHTML =
+        "<span class='text-danger'>-</span>";
+      document.getElementById("pkxfbill").innerHTML =
+        "<span class='text-danger'>-</span>";
     }
-  }
-  else if(!isNaN(kwhomfval) && !isNaN(offpkunit)){
-    var finalsrunit = offpkunit*kwhomfval; var finalsrcost=finalsrunit*mt_1["srrate"];
+  } else if (!isNaN(kwhomfval) && !isNaN(offpkunit)) {
+    var finalsrunit = offpkunit * kwhomfval;
+    var finalsrcost = finalsrunit * mt_1["srrate"];
     //single register meter
-    document.getElementById("srunit").innerHTML=finalsrunit.toFixed(2);
-    document.getElementById("srbill").innerHTML=finalsrcost.toFixed(2);
-    document.getElementById("offpkunit").innerHTML="<span class='text-danger'>-</span>";
-    document.getElementById("offpkbill").innerHTML="<span class='text-danger'>-</span>";
-    document.getElementById("pkunit").innerHTML="<span class='text-danger'>-</span>";
-    document.getElementById("pkbill").innerHTML="<span class='text-danger'>-</span>";
+    document.getElementById("srunit").innerHTML = finalsrunit.toFixed(2);
+    document.getElementById("srbill").innerHTML = finalsrcost.toFixed(2);
+    document.getElementById("offpkunit").innerHTML =
+      "<span class='text-danger'>-</span>";
+    document.getElementById("offpkbill").innerHTML =
+      "<span class='text-danger'>-</span>";
+    document.getElementById("pkunit").innerHTML =
+      "<span class='text-danger'>-</span>";
+    document.getElementById("pkbill").innerHTML =
+      "<span class='text-danger'>-</span>";
 
-    if(isNaN(energyunit)){
-      energyunit=finalsrunit;
-      energycost=finalsrcost;
+    if (isNaN(energyunit)) {
+      energyunit = finalsrunit;
+      energycost = finalsrcost;
+    } else {
+      energyunit += finalsrunit;
+      energycost += finalsrcost;
     }
-    else{
-      energyunit+=finalsrunit;
-      energycost+=finalsrcost;
+
+    //transformer loss consideration
+    if (document.getElementById("ltside").checked) {
+      //consider transformer loss
+      var finalxfsrunit = offpkunit * kwhomfval * 0.025;
+      var finalxfsrcost = finalxfsrunit * mt_1["srrate"];
+      
+      document.getElementById("srxfunit").innerHTML = finalxfsrunit.toFixed(2);
+      document.getElementById("srxfbill").innerHTML = finalxfsrcost.toFixed(2);
+      document.getElementById("offpkxfunit").innerHTML =
+        "<span class='text-danger'>-</span>";
+      document.getElementById("offpkxfbill").innerHTML =
+        "<span class='text-danger'>-</span>";
+      document.getElementById("pkxfunit").innerHTML = "<span class='text-danger'>-</span>";
+      document.getElementById("pkxfbill").innerHTML = "<span class='text-danger'>-</span>";
+
+      if (isNaN(energyunit)) {
+        energyunit = finalxfsrunit;
+        energycost = finalxfsrcost;
+      } else {
+        energyunit += finalxfsrunit;
+        energycost += finalxfsrcost;
+      }
+    } else {
+      //double register meter
+      document.getElementById("srxfunit").innerHTML =
+        "<span class='text-danger'>-</span>";
+      document.getElementById("srxfbill").innerHTML =
+        "<span class='text-danger'>-</span>";
+      document.getElementById("offpkxfunit").innerHTML =
+        "<span class='text-danger'>-</span>";
+      document.getElementById("offpkxfbill").innerHTML =
+        "<span class='text-danger'>-</span>";
+      document.getElementById("pkxfunit").innerHTML =
+        "<span class='text-danger'>-</span>";
+      document.getElementById("pkxfbill").innerHTML =
+        "<span class='text-danger'>-</span>";
     }
-  }
-  else{
-    document.getElementById("srunit").innerHTML="<span class='text-danger'>-</span>";
-    document.getElementById("srbill").innerHTML="<span class='text-danger'>-</span>";
-    document.getElementById("offpkunit").innerHTML="<span class='text-danger'>-</span>";
-    document.getElementById("offpkbill").innerHTML="<span class='text-danger'>-</span>";
-    document.getElementById("pkunit").innerHTML="<span class='text-danger'>-</span>";
-    document.getElementById("pkbill").innerHTML="<span class='text-danger'>-</span>";
+  } else {
+    document.getElementById("srunit").innerHTML =
+      "<span class='text-danger'>-</span>";
+    document.getElementById("srbill").innerHTML =
+      "<span class='text-danger'>-</span>";
+    document.getElementById("offpkunit").innerHTML =
+      "<span class='text-danger'>-</span>";
+    document.getElementById("offpkbill").innerHTML =
+      "<span class='text-danger'>-</span>";
+    document.getElementById("pkunit").innerHTML =
+      "<span class='text-danger'>-</span>";
+    document.getElementById("pkbill").innerHTML =
+      "<span class='text-danger'>-</span>";
   }
 
   ///updating the total bill amount

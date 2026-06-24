@@ -372,7 +372,7 @@
         </div>
 
         <form class="row mb-2 align-items-start">
-          <div class="col-lg-4 mb-1">
+          <div class="col-md-6 col-lg-3 mb-1">
             <div class="card">
               <div class="card-header text-bg-info">
                 <div class="row">
@@ -402,7 +402,7 @@
                         type="text"
                         id="kwhoffpkbilledunit"
                         class="form-control rounded-0"
-                        style="padding-right: 36px; width: 150px"
+                        style="padding-right: 36px; width: 100px"
                         placeholder="0"
                       />
                       <span class="input-group-text" style="width: 50px"
@@ -421,7 +421,7 @@
                         type="text"
                         id="kwhpkbilledunit"
                         class="form-control rounded-0"
-                        style="padding-right: 36px; width: 150px"
+                        style="padding-right: 36px; width: 100px"
                         placeholder="0"
                       />
                       <span class="input-group-text" style="width: 50px"
@@ -434,7 +434,7 @@
             </div>
           </div>
 
-          <div class="col-md-6 col-lg-4 mb-1">
+          <div class="col-md-6 col-lg-3 mb-1">
             <div class="card">
               <div class="card-header text-bg-info">
                 <div class="row">
@@ -464,7 +464,7 @@
                         type="text"
                         id="kvarhoffpkbilledunit"
                         class="form-control rounded-0"
-                        style="padding-right: 36px; width: 150px"
+                        style="padding-right: 36px; width: 100px"
                         placeholder="0"
                       />
                       <span class="input-group-text" style="width: 50px"
@@ -483,7 +483,7 @@
                         type="text"
                         id="kvarhpkbilledunit"
                         class="form-control rounded-0"
-                        style="padding-right: 36px; width: 150px"
+                        style="padding-right: 36px; width: 100px"
                         placeholder="0"
                       />
                       <span class="input-group-text" style="width: 50px"
@@ -496,7 +496,7 @@
             </div>
           </div>
 
-          <div class="col-md-6 col-lg-4 mb-1 align-self-stretch">
+          <div class="col-md-6 col-lg-3 mb-1 align-self-stretch">
             <div class="card h-100">
               <div class="card-header text-bg-info">
                 <div class="row">
@@ -526,7 +526,7 @@
                         type="text"
                         id="kwbilledunit"
                         class="form-control rounded-0"
-                        style="padding-right: 36px; width: 150px"
+                        style="padding-right: 36px; width: 100px"
                       />
                       <span class="input-group-text" style="width: 50px"
                         >kW</span
@@ -544,11 +544,58 @@
                         type="text"
                         id="sloadunit"
                         class="form-control rounded-0"
-                        style="padding-right: 36px; width: 150px"
+                        style="padding-right: 36px; width: 100px"
                         placeholder="0"
                       />
                       <span class="input-group-text" style="width: 50px"
                         >kW</span
+                      >
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="col-md-6 col-lg-3 mb-1 align-self-stretch">
+            <div class="card h-100">
+              <div class="card-header text-bg-info">
+                <div class="row">
+                  <div class="col-auto me-auto">Other Information</div>
+                  <div class="col-auto"></div>
+                </div>
+              </div>
+              <div class="card-body">
+                <div class="row justify-content-center">
+                  <div class="col-auto mb-2" id="htltside">
+                    <div
+                      class="btn-group"
+                      role="group"
+                      aria-label="Basic radio toggle button group for htside or ltside metering selection"
+                    >
+                      <input
+                        type="radio"
+                        class="btn-check"
+                        name="ltsidecheck"
+                        id="htside"
+                        autocomplete="off"
+                        value="htside"
+                        checked
+                      />
+                      <label class="btn btn-sm btn-outline-secondary" for="htside"
+                        >HT Side Meter</label
+                      >
+
+                      <input
+                        type="radio"
+                        class="btn-check"
+                        name="ltsidecheck"
+                        id="ltside"
+                        value="ltside"
+                        autocomplete="off"
+                      />
+                      <label class="btn btn-sm btn-outline-secondary" for="ltside"
+                        >LT Side Meter</label
                       >
                     </div>
                   </div>
@@ -570,64 +617,193 @@
             </thead>
             <tbody class="table-group-divider">
               <tr>
-                <th scope="row" id="srlabel" class="bg-success-subtle border border-success-subtle">Single Register Unit</th>
-                <td id="srrate" class="text-end bg-success-subtle border border-success-subtle"></td>
-                <td id="srunit" class="text-end bg-success-subtle border border-success-subtle"></td>
-                <td id="srbill" class="text-end bg-success-subtle border border-success-subtle"></td>
+                <th
+                  scope="row"
+                  id="srlabel"
+                  class="bg-success-subtle border border-success-subtle"
+                >
+                  Single Register Unit
+                </th>
+                <td
+                  id="srrate"
+                  class="text-end bg-success-subtle border border-success-subtle"
+                ></td>
+                <td
+                  id="srunit"
+                  class="text-end bg-success-subtle border border-success-subtle"
+                ></td>
+                <td
+                  id="srbill"
+                  class="text-end bg-success-subtle border border-success-subtle"
+                ></td>
               </tr>
               <tr>
-                <th scope="row" id="offpklabel" class="bg-success-subtle border border-success-subtle">
+                <th
+                  scope="row"
+                  id="offpklabel"
+                  class="bg-success-subtle border border-success-subtle"
+                >
                   Double Register - Offpeak Unit
                 </th>
-                <td id="offpkrate" class="text-end bg-success-subtle border border-success-subtle"></td>
-                <td id="offpkunit" class="text-end bg-success-subtle border border-success-subtle"></td>
-                <td id="offpkbill" class="text-end bg-success-subtle border border-success-subtle"></td>
+                <td
+                  id="offpkrate"
+                  class="text-end bg-success-subtle border border-success-subtle"
+                ></td>
+                <td
+                  id="offpkunit"
+                  class="text-end bg-success-subtle border border-success-subtle"
+                ></td>
+                <td
+                  id="offpkbill"
+                  class="text-end bg-success-subtle border border-success-subtle"
+                ></td>
               </tr>
               <tr>
-                <th scope="row" id="pklabel" class="bg-success-subtle border border-success-subtle">Double Register - Peak Unit</th>
-                <td id="pkrate" class="text-end bg-success-subtle border border-success-subtle"></td>
-                <td id="pkunit" class="text-end bg-success-subtle border border-success-subtle"></td>
-                <td id="pkbill" class="text-end bg-success-subtle border border-success-subtle"></td>
+                <th
+                  scope="row"
+                  id="pklabel"
+                  class="bg-success-subtle border border-success-subtle"
+                >
+                  Double Register - Peak Unit
+                </th>
+                <td
+                  id="pkrate"
+                  class="text-end bg-success-subtle border border-success-subtle"
+                ></td>
+                <td
+                  id="pkunit"
+                  class="text-end bg-success-subtle border border-success-subtle"
+                ></td>
+                <td
+                  id="pkbill"
+                  class="text-end bg-success-subtle border border-success-subtle"
+                ></td>
               </tr>
               <tr>
-                <th scope="row" id="srlabel" class="bg-warning-subtle border border-warning-subtle">Single Register PFC Unit</th>
-                <td id="srpfcrate" class="text-end bg-warning-subtle border border-warning-subtle"></td>
-                <td id="srpfcunit" class="text-end bg-warning-subtle border border-warning-subtle"></td>
-                <td id="srpfcbill" class="text-end bg-warning-subtle border border-warning-subtle"></td>
+                <th
+                  scope="row"
+                  id="srlabel"
+                  class="bg-warning-subtle border border-warning-subtle"
+                >
+                  Single Register PFC Unit
+                </th>
+                <td
+                  id="srpfcrate"
+                  class="text-end bg-warning-subtle border border-warning-subtle"
+                ></td>
+                <td
+                  id="srpfcunit"
+                  class="text-end bg-warning-subtle border border-warning-subtle"
+                ></td>
+                <td
+                  id="srpfcbill"
+                  class="text-end bg-warning-subtle border border-warning-subtle"
+                ></td>
               </tr>
               <tr>
-                <th scope="row" id="offpklabel" class="bg-warning-subtle border border-warning-subtle">
+                <th
+                  scope="row"
+                  id="offpklabel"
+                  class="bg-warning-subtle border border-warning-subtle"
+                >
                   Double Register - Offpeak PFC Unit
                 </th>
-                <td id="offpkpfcrate" class="text-end bg-warning-subtle border border-warning-subtle"></td>
-                <td id="offpkpfcunit" class="text-end bg-warning-subtle border border-warning-subtle"></td>
-                <td id="offpkpfcbill" class="text-end bg-warning-subtle border border-warning-subtle"></td>
+                <td
+                  id="offpkpfcrate"
+                  class="text-end bg-warning-subtle border border-warning-subtle"
+                ></td>
+                <td
+                  id="offpkpfcunit"
+                  class="text-end bg-warning-subtle border border-warning-subtle"
+                ></td>
+                <td
+                  id="offpkpfcbill"
+                  class="text-end bg-warning-subtle border border-warning-subtle"
+                ></td>
               </tr>
               <tr>
-                <th scope="row" id="pklabel" class="bg-warning-subtle border border-warning-subtle">Double Register - Peak PFC Unit</th>
-                <td id="pkpfcrate" class="text-end bg-warning-subtle border border-warning-subtle"></td>
-                <td id="pkpfcunit" class="text-end bg-warning-subtle border border-warning-subtle"></td>
-                <td id="pkpfcbill" class="text-end bg-warning-subtle border border-warning-subtle"></td>
+                <th
+                  scope="row"
+                  id="pklabel"
+                  class="bg-warning-subtle border border-warning-subtle"
+                >
+                  Double Register - Peak PFC Unit
+                </th>
+                <td
+                  id="pkpfcrate"
+                  class="text-end bg-warning-subtle border border-warning-subtle"
+                ></td>
+                <td
+                  id="pkpfcunit"
+                  class="text-end bg-warning-subtle border border-warning-subtle"
+                ></td>
+                <td
+                  id="pkpfcbill"
+                  class="text-end bg-warning-subtle border border-warning-subtle"
+                ></td>
               </tr>
               <tr>
-                <th scope="row" id="srlabel" class="bg-danger-subtle border border-danger-subtle">Single Register X-Former Loss Unit (2.5%)</th>
-                <td id="srxfrate" class="text-end bg-danger-subtle border border-danger-subtle"></td>
-                <td id="srxfunit" class="text-end bg-danger-subtle border border-danger-subtle"></td>
-                <td id="srxfbill" class="text-end bg-danger-subtle border border-danger-subtle"></td>
+                <th
+                  scope="row"
+                  id="srlabel"
+                  class="bg-danger-subtle border border-danger-subtle"
+                >
+                  Single Register X-Former Loss Unit (2.5%)
+                </th>
+                <td
+                  id="srxfrate"
+                  class="text-end bg-danger-subtle border border-danger-subtle"
+                ></td>
+                <td
+                  id="srxfunit"
+                  class="text-end bg-danger-subtle border border-danger-subtle"
+                ></td>
+                <td
+                  id="srxfbill"
+                  class="text-end bg-danger-subtle border border-danger-subtle"
+                ></td>
               </tr>
               <tr>
-                <th scope="row" id="offpklabel" class="bg-danger-subtle border border-danger-subtle">
+                <th
+                  scope="row"
+                  id="offpklabel"
+                  class="bg-danger-subtle border border-danger-subtle"
+                >
                   Double Register - Offpeak X-Former Loss Unit (2.5%)
                 </th>
-                <td id="offpkxfrate" class="text-end bg-danger-subtle border border-danger-subtle"></td>
-                <td id="offpkxfunit" class="text-end bg-danger-subtle border border-danger-subtle"></td>
-                <td id="offpkxfbill" class="text-end bg-danger-subtle border border-danger-subtle"></td>
+                <td
+                  id="offpkxfrate"
+                  class="text-end bg-danger-subtle border border-danger-subtle"
+                ></td>
+                <td
+                  id="offpkxfunit"
+                  class="text-end bg-danger-subtle border border-danger-subtle"
+                ></td>
+                <td
+                  id="offpkxfbill"
+                  class="text-end bg-danger-subtle border border-danger-subtle"
+                ></td>
               </tr>
               <tr>
-                <th scope="row" id="pklabel" class="bg-danger-subtle border border-danger-subtle">Double Register - Peak X-Former Loss Unit  (2.5%)</th>
-                <td id="pkxfrate" class="text-end bg-danger-subtle border border-danger-subtle"></td>
-                <td id="pkxfunit" class="text-end bg-danger-subtle border border-danger-subtle"></td>
-                <td id="pkxfbill" class="text-end bg-danger-subtle border border-danger-subtle"></td>
+                <th
+                  scope="row"
+                  id="pklabel"
+                  class="bg-danger-subtle border border-danger-subtle"
+                >
+                  Double Register - Peak X-Former Loss Unit (2.5%)
+                </th>
+                <td
+                  id="pkxfrate"
+                  class="text-end bg-danger-subtle border border-danger-subtle"
+                ></td>
+                <td
+                  id="pkxfunit"
+                  class="text-end bg-danger-subtle border border-danger-subtle"
+                ></td>
+                <td
+                  id="pkxfbill"
+                  class="text-end bg-danger-subtle border border-danger-subtle"
+                ></td>
               </tr>
             </tbody>
             <tfoot class="table-group-divider">
