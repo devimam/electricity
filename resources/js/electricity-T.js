@@ -12,7 +12,7 @@ var lt_t = {
   pkrate: 23.81,
 };
 
-var demandcharge = 120; ///per kW for LT-T
+var demandCharge = 120; ///per kW for LT-T
 var minSLoad=0;
 var minCLoad=0;
 
@@ -284,19 +284,19 @@ function calculateDemandCharge() {
   if (isvalids && isvalidc && sload >= minSLoad && cload >= minCLoad) {
     console.log("valid demand charge found");
     if (sload >= cload) {
-      demandcost = sload * demandcharge;
+      demandcost = sload * demandCharge;
       document.getElementById("demandload").innerHTML =
-        sload + " x " + demandcharge;
+        sload + " x " + demandCharge;
     } else {
-      demandcost = sload * demandcharge + (cload - sload) * 2 * demandcharge; ///two times panel demand charge
+      demandcost = sload * demandCharge + (cload - sload) * 2 * demandCharge; ///two times panel demand charge
       document.getElementById("demandload").innerHTML =
         sload +
         " x " +
-        demandcharge +
+        demandCharge +
         "<span class='text-danger'> + " +
         (cload - sload) +
         " x 2 x " +
-        demandcharge +
+        demandCharge +
         "</span>";
     }
 

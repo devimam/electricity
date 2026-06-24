@@ -376,15 +376,16 @@
             <div class="card">
               <div class="card-header text-bg-info">
                 <div class="row">
-                  <div class="col-auto me-auto">kWh Meter</div>
+                  <div class="col-auto me-auto">kWh Meter Units</div>
                   <div class="col-auto">
-                    <div class="input-group input-group-sm">
-                      <div class="input-group-text" id="kwhomf">OMF</div>
+                    <div class="input-group input-group-sm has-validation">
+                      <div class="input-group-text">OMF</div>
                       <input
-                        type="number"
+                        type="text"
                         class="form-control"
                         style="width: 80px"
                         value="1"
+                        id="kwhomf"
                       />
                     </div>
                   </div>
@@ -392,15 +393,14 @@
               </div>
               <div class="card-body">
                 <div class="row justify-content-center">
-                  <!-- billed unit section -->
-                  <div class="col-auto mb-2" id="singleregister">
-                    <div class="input-group has-validation">
-                      <span class="input-group-text" style="width: 140px"
-                        >Sin Reg/Offpeak</span
+                  <div class="col-auto mb-2" id="kwhoffpkregister">
+                    <div class="input-group input-group-sm has-validation">
+                      <span class="input-group-text" style="width: 130px"
+                        >Single/Off-Peak</span
                       >
                       <input
                         type="text"
-                        id="srbilledunit"
+                        id="kwhoffpkbilledunit"
                         class="form-control rounded-0"
                         style="padding-right: 36px; width: 150px"
                         placeholder="0"
@@ -412,14 +412,14 @@
                   </div>
                 </div>
                 <div class="row mb-2 justify-content-center">
-                  <div class="col-auto mb-2" id="pkregister">
-                    <div class="input-group has-validation">
-                      <span class="input-group-text" style="width: 140px"
+                  <div class="col-auto" id="kwhpkregister">
+                    <div class="input-group input-group-sm has-validation">
+                      <span class="input-group-text" style="width: 130px"
                         >Peak</span
                       >
                       <input
                         type="text"
-                        id="pkbilledunit"
+                        id="kwhpkbilledunit"
                         class="form-control rounded-0"
                         style="padding-right: 36px; width: 150px"
                         placeholder="0"
@@ -434,81 +434,82 @@
             </div>
           </div>
 
-          <div class="col-sm-7 col-lg-4 mb-1">
+          <div class="col-md-6 col-lg-4 mb-1">
             <div class="card">
               <div class="card-header text-bg-info">
                 <div class="row">
-                  <div class="col-auto me-auto">kVArh Meter</div>
+                  <div class="col-auto me-auto">kVArh Meter Units</div>
                   <div class="col-auto">
-                    <div class="input-group input-group-sm">
-                      <div class="input-group-text" id="kwhomf">OMF</div>
+                    <div class="input-group input-group-sm has-validation">
+                      <div class="input-group-text">OMF</div>
                       <input
-                        type="number"
+                        type="text"
                         class="form-control"
                         style="width: 80px"
                         value="1"
+                        id="kvarhomf"
                       />
                     </div>
                   </div>
                 </div>
               </div>
               <div class="card-body">
-                <div class="row justify-content-center">
-                  <!-- billed unit section -->
-                  <div class="col-auto mb-2" id="singleregister">
-                    <div class="input-group has-validation">
-                      <span class="input-group-text" style="width: 140px"
-                        >Sin Reg/Offpeak</span
+                <div class="row mb-2 justify-content-center">
+                  <div class="col-auto" id="kvarhoffpkregister">
+                    <div class="input-group input-group-sm has-validation">
+                      <span class="input-group-text" style="width: 130px"
+                        >Single/Off-Peak</span
                       >
                       <input
                         type="text"
-                        id="srbilledunit"
+                        id="kvarhoffpkbilledunit"
                         class="form-control rounded-0"
                         style="padding-right: 36px; width: 150px"
                         placeholder="0"
                       />
-                      <span class="input-group-text" style="width: 60px"
+                      <span class="input-group-text" style="width: 50px"
+                        >kVArh</span
+                      >
+                    </div>
+                  </div>
+                </div>
+                <div class="row mb-2 justify-content-center">
+                  <div class="col-auto" id="kvarhpkregister">
+                    <div class="input-group input-group-sm has-validation">
+                      <span class="input-group-text" style="width: 130px"
+                        >Peak</span
+                      >
+                      <input
+                        type="text"
+                        id="kvarhpkbilledunit"
+                        class="form-control rounded-0"
+                        style="padding-right: 36px; width: 150px"
+                        placeholder="0"
+                      />
+                      <span class="input-group-text" style="width: 50px"
                         >kVArh</span
                       >
                     </div>
                   </div>
                 </div>
               </div>
-              <div class="row mb-2 justify-content-center">
-                <div class="col-auto mb-2" id="pkregister">
-                  <div class="input-group has-validation">
-                    <span class="input-group-text" style="width: 140px"
-                      >Peak</span
-                    >
-                    <input
-                      type="text"
-                      id="pkbilledunit"
-                      class="form-control rounded-0"
-                      style="padding-right: 36px; width: 150px"
-                      placeholder="0"
-                    />
-                    <span class="input-group-text" style="width: 60px"
-                      >kVArh</span
-                    >
-                  </div>
-                </div>
-              </div>
             </div>
           </div>
 
-          <div class="col-sm-5 col-lg-4 mb-1 align-self-stretch">
+          <div class="col-md-6 col-lg-4 mb-1 align-self-stretch">
             <div class="card h-100">
               <div class="card-header text-bg-info">
                 <div class="row">
-                  <div class="col-auto me-auto">kW Meter</div>
+                  <div class="col-auto me-auto">kW Meter Units</div>
                   <div class="col-auto">
-                    <div class="input-group input-group-sm">
-                      <div class="input-group-text" id="kwomf">OMF</div>
+                    <div class="input-group input-group-sm has-validation">
+                      <div class="input-group-text">OMF</div>
                       <input
-                        type="number"
+                        type="text"
                         class="form-control"
-                        style="width: 80px;"
+                        style="width: 80px"
                         value="1"
+                        id="kwomf"
                       />
                     </div>
                   </div>
@@ -516,15 +517,32 @@
               </div>
               <div class="card-body">
                 <div class="row justify-content-center">
-                  <!-- billed unit section -->
-                  <div class="col-auto mb-2" id="singleregister">
-                    <div class="input-group has-validation">
-                      <span class="input-group-text" style="width: 140px"
+                  <div class="col-auto mb-2" id="kwregister">
+                    <div class="input-group input-group-sm has-validation">
+                      <span class="input-group-text" style="width: 130px"
                         >Max Demand</span
                       >
                       <input
                         type="text"
-                        id="srbilledunit"
+                        id="kwbilledunit"
+                        class="form-control rounded-0"
+                        style="padding-right: 36px; width: 150px"
+                      />
+                      <span class="input-group-text" style="width: 50px"
+                        >kW</span
+                      >
+                    </div>
+                  </div>
+                </div>
+                <div class="row justify-content-center">
+                  <div class="col-auto mb-2" id="sload">
+                    <div class="input-group input-group-sm has-validation">
+                      <span class="input-group-text" style="width: 130px"
+                        >Sanctioned Load</span
+                      >
+                      <input
+                        type="text"
+                        id="sloadunit"
                         class="form-control rounded-0"
                         style="padding-right: 36px; width: 150px"
                         placeholder="0"
