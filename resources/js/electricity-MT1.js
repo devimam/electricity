@@ -346,9 +346,9 @@ function calculateDemandCharge() {
     //transformer loss consideration
     if (document.getElementById("ltside").checked) {
       //consider transformer loss
-      var finalxfoffpkunit = offpkunit * kwhomfval * 0.025;
+      var finalxfoffpkunit = Math.ceil(offpkunit * kwhomfval * 0.025);
       var finalxfoffpkcost = finalxfoffpkunit * mt_1["offpkrate"];
-      var finalxfpkunit = pkunit * kwhomfval * 0.025;
+      var finalxfpkunit = Math.ceil(pkunit * kwhomfval * 0.025);
       var finalxfpkcost = finalxfpkunit * mt_1["pkrate"];
       
       document.getElementById("srxfunit").innerHTML =
@@ -410,7 +410,7 @@ function calculateDemandCharge() {
     //transformer loss consideration
     if (document.getElementById("ltside").checked) {
       //consider transformer loss
-      var finalxfsrunit = offpkunit * kwhomfval * 0.025;
+      var finalxfsrunit = Math.ceil(offpkunit * kwhomfval * 0.025);
       var finalxfsrcost = finalxfsrunit * mt_1["srrate"];
       
       document.getElementById("srxfunit").innerHTML = finalxfsrunit.toFixed(2);
