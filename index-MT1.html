@@ -372,6 +372,7 @@
         </div>
 
         <form class="row mb-2 align-items-start">
+          <!-- kWh meter units -->
           <div class="col-md-6 col-lg-3 mb-1">
             <div class="card">
               <div class="card-header text-bg-info">
@@ -434,6 +435,7 @@
             </div>
           </div>
 
+          <!-- kvarh meter units  -->
           <div class="col-md-6 col-lg-3 mb-1">
             <div class="card">
               <div class="card-header text-bg-info">
@@ -496,6 +498,7 @@
             </div>
           </div>
 
+          <!-- kw meter units  -->
           <div class="col-md-6 col-lg-3 mb-1 align-self-stretch">
             <div class="card h-100">
               <div class="card-header text-bg-info">
@@ -557,6 +560,7 @@
             </div>
           </div>
 
+          <!-- other information  -->
           <div class="col-md-6 col-lg-3 mb-1 align-self-stretch">
             <div class="card h-100">
               <div class="card-header text-bg-info">
@@ -566,10 +570,11 @@
                 </div>
               </div>
               <div class="card-body">
+                <!-- htside ltside selection -->
                 <div class="row justify-content-center">
-                  <div class="col-auto mb-2" id="htltside">
+                  <div class="col-8 mb-2" id="htltside">
                     <div
-                      class="btn-group"
+                      class="btn-group w-100"
                       role="group"
                       aria-label="Basic radio toggle button group for htside or ltside metering selection"
                     >
@@ -582,7 +587,9 @@
                         value="htside"
                         checked
                       />
-                      <label class="btn btn-sm btn-outline-secondary" for="htside"
+                      <label
+                        class="btn btn-sm btn-outline-secondary"
+                        for="htside"
                         >HT Side Meter</label
                       >
 
@@ -594,25 +601,42 @@
                         value="ltside"
                         autocomplete="off"
                       />
-                      <label class="btn btn-sm btn-outline-secondary" for="ltside"
+                      <label
+                        class="btn btn-sm btn-outline-secondary"
+                        for="ltside"
                         >LT Side Meter</label
                       >
                     </div>
                   </div>
                 </div>
 
+                <!-- transformer rent section -->
                 <div class="row justify-content-center">
-                  <div class="col-auto mb-2">
-                    <div class="accordion accordion-flush" id="xfaccordion">
-                      <div class="accordion-item border border-bottom">
-                        <h2 class="accordion-header">
-                          <button class="accordion-button" style="padding: 0.25rem 0.5rem; font-size: 0.875rem;" type="button" data-bs-toggle="collapse" data-bs-target="#xfrentsection" aria-expanded="false" aria-controls="xfrentsection">
+                  <div class="col-8 mb-2">
+                    <div class="accordion accordion-flush">
+                      <div class="accordion-item">
+                        <h2 class="accordion-header border">
+                          <button
+                            class="accordion-button text-bg-secondary collapsed"
+                            style="padding: 0.25rem 0.5rem; font-size: 0.875rem"
+                            type="button"
+                            data-bs-toggle="collapse"
+                            data-bs-target="#xfrentsection"
+                            aria-expanded="false"
+                            aria-controls="xfrentsection"
+                          >
                             Transformer Rent (if applicable)
                           </button>
                         </h2>
-                        <div id="xfrentsection" class="accordion-collapse collapse">
-                          <div class="accordion-body">
-                            <div class="input-group input-group-sm has-validation">
+
+                        <div
+                          id="xfrentsection"
+                          class="accordion-collapse collapse"
+                        >
+                          <div class="accordion-body border">
+                            <div
+                              class="input-group input-group-sm mb-1 has-validation"
+                            >
                               <span class="input-group-text" style="width: 80px"
                                 >Capacity</span
                               >
@@ -628,9 +652,11 @@
                               >
                             </div>
 
-                            <div class="input-group input-group-sm has-validation">
+                            <div
+                              class="input-group input-group-sm mb-1 has-validation"
+                            >
                               <span class="input-group-text" style="width: 80px"
-                                >Rent</span
+                                >Month size</span
                               >
                               <input
                                 type="text"
@@ -642,7 +668,22 @@
                               <span class="input-group-text" style="width: 40px"
                                 >days</span
                               >
-                            </div> 
+                            </div>
+
+                            <div
+                              class="input-group input-group-sm mb-1 has-validation"
+                            >
+                              <span class="input-group-text" style="width: 80px"
+                                >Rate</span
+                              >
+                              <select
+                                class="form-select form-select-sm"
+                                id="xfrate"
+                              >
+                                <option value="lowrate">2.5 Tk</option>
+                                <option value="highrate" selected>5 Tk</option>
+                              </select>
+                            </div>
                           </div>
                         </div>
                       </div>
@@ -732,69 +773,6 @@
                 <th
                   scope="row"
                   id="srlabel"
-                  class="bg-warning-subtle border border-warning-subtle"
-                >
-                  Single Register PFC Unit
-                </th>
-                <td
-                  id="srpfcrate"
-                  class="text-end bg-warning-subtle border border-warning-subtle"
-                ></td>
-                <td
-                  id="srpfcunit"
-                  class="text-end bg-warning-subtle border border-warning-subtle"
-                ></td>
-                <td
-                  id="srpfcbill"
-                  class="text-end bg-warning-subtle border border-warning-subtle"
-                ></td>
-              </tr>
-              <tr>
-                <th
-                  scope="row"
-                  id="offpklabel"
-                  class="bg-warning-subtle border border-warning-subtle"
-                >
-                  Double Register - Offpeak PFC Unit
-                </th>
-                <td
-                  id="offpkpfcrate"
-                  class="text-end bg-warning-subtle border border-warning-subtle"
-                ></td>
-                <td
-                  id="offpkpfcunit"
-                  class="text-end bg-warning-subtle border border-warning-subtle"
-                ></td>
-                <td
-                  id="offpkpfcbill"
-                  class="text-end bg-warning-subtle border border-warning-subtle"
-                ></td>
-              </tr>
-              <tr>
-                <th
-                  scope="row"
-                  id="pklabel"
-                  class="bg-warning-subtle border border-warning-subtle"
-                >
-                  Double Register - Peak PFC Unit
-                </th>
-                <td
-                  id="pkpfcrate"
-                  class="text-end bg-warning-subtle border border-warning-subtle"
-                ></td>
-                <td
-                  id="pkpfcunit"
-                  class="text-end bg-warning-subtle border border-warning-subtle"
-                ></td>
-                <td
-                  id="pkpfcbill"
-                  class="text-end bg-warning-subtle border border-warning-subtle"
-                ></td>
-              </tr>
-              <tr>
-                <th
-                  scope="row"
-                  id="srlabel"
                   class="bg-danger-subtle border border-danger-subtle"
                 >
                   Single Register X-Former Loss Unit (2.5%)
@@ -854,6 +832,81 @@
                   class="text-end bg-danger-subtle border border-danger-subtle"
                 ></td>
               </tr>
+              <tr>
+                <th
+                  scope="row"
+                  id="srlabel"
+                  class="bg-warning-subtle border border-warning-subtle"
+                >
+                  Single Register PF Correction
+                </th>
+                <td
+                  id="srpfcrate"
+                  class="text-end bg-warning-subtle border border-warning-subtle"
+                >
+                  <span class="badge rounded-pill text-bg-secondary"
+                    >PF = <span id="srpfval">#.##</span></span
+                  >
+                </td>
+                <td
+                  id="srpfcunit"
+                  class="text-end bg-warning-subtle border border-warning-subtle"
+                ></td>
+                <td
+                  id="srpfcbill"
+                  class="text-end bg-warning-subtle border border-warning-subtle"
+                ></td>
+              </tr>
+              <tr>
+                <th
+                  scope="row"
+                  id="offpklabel"
+                  class="bg-warning-subtle border border-warning-subtle"
+                >
+                  Double Register - Offpeak PF Correction
+                </th>
+                <td
+                  id="offpkpfcrate"
+                  class="text-end bg-warning-subtle border border-warning-subtle"
+                >
+                  <span class="badge rounded-pill text-bg-secondary"
+                    >PF = <span id="offpkpfval">#.##</span></span
+                  >
+                </td>
+                <td
+                  id="offpkpfcunit"
+                  class="text-end bg-warning-subtle border border-warning-subtle"
+                ></td>
+                <td
+                  id="offpkpfcbill"
+                  class="text-end bg-warning-subtle border border-warning-subtle"
+                ></td>
+              </tr>
+              <tr>
+                <th
+                  scope="row"
+                  id="pklabel"
+                  class="bg-warning-subtle border border-warning-subtle"
+                >
+                  Double Register - Peak PF Correction
+                </th>
+                <td
+                  id="pkpfcrate"
+                  class="text-end bg-warning-subtle border border-warning-subtle"
+                >
+                  <span class="badge rounded-pill text-bg-secondary"
+                    >PF = <span id="pkpfval">#.##</span></span
+                  >
+                </td>
+                <td
+                  id="pkpfcunit"
+                  class="text-end bg-warning-subtle border border-warning-subtle"
+                ></td>
+                <td
+                  id="pkpfcbill"
+                  class="text-end bg-warning-subtle border border-warning-subtle"
+                ></td>
+              </tr>
             </tbody>
             <tfoot class="table-group-divider">
               <tr class="table-light">
@@ -871,6 +924,15 @@
                   <span id="demandload"></span>
                 </th>
                 <th id="demandcost" class="text-end text-secondary"></th>
+              </tr>
+              <tr>
+                <th colspan="2" class="text-end text-secondary">
+                  Transformer Rent
+                </th>
+                <th class="text-end text-secondary">
+                  <span id="xfrentrate"></span>
+                </th>
+                <th id="xfrentcost" class="text-end text-secondary"></th>
               </tr>
               <tr class="table-secondary">
                 <th colspan="2" class="text-end text-primary">
