@@ -453,9 +453,9 @@ function calculateDemandCharge() {
     //transformer loss consideration
     if (document.getElementById("ltside").checked) {
       //consider transformer loss
-      var finalxfoffpkunit = offpkunit * kwhomfval * 0.025;
+      var finalxfoffpkunit = finaloffpkunit * 0.025;
       var finalxfoffpkcost = finalxfoffpkunit * mt_1["offpkrate"];
-      var finalxfpkunit = pkunit * kwhomfval * 0.025;
+      var finalxfpkunit = finalpkunit * 0.025;
       var finalxfpkcost = finalxfpkunit * mt_1["pkrate"];
 
       document.getElementById("srxfunit").innerHTML =
@@ -490,14 +490,14 @@ function calculateDemandCharge() {
     }
 
     //power factor correction
-    var calculatedPF = calcPF(energyoffpkunit, energypkunit);
+    var calculatedPF = calcPF(finaloffpkunit, finalpkunit);
     if (!isNaN(calculatedPF)) {
-      console.log("valid pf value");
+      console.log("valid pf value: "+calculatedPF);
       document.getElementById("srpfval").innerHTML = calculatedPF;
       document.getElementById("offpkpfval").innerHTML = calculatedPF;
       document.getElementById("pkpfval").innerHTML = calculatedPF;
 
-      if (calculatedPF > 0 && calculatedPF < 0.95) {
+      if (calculatedPF > 0.0 && calculatedPF < 0.95) {
         //pfc unit calculation
         var standardoffpkunit = (energyoffpkunit * 0.95) / calculatedPF;
         var finalpfcoffpkunit = standardoffpkunit - energyoffpkunit;
@@ -514,12 +514,12 @@ function calculateDemandCharge() {
         document.getElementById("srpfcunit").innerHTML =
           "<span class='text-danger'>-</span>";
 
-        //pfc charge calculation
+        //pfc charge calculation, range between 0.75 to 0.95
         calculatedPF = Math.min(Math.max(0.75, calculatedPF), 0.95); // in between 0.75 and 0.95
         var correction = (0.95 - calculatedPF) * 100; //0.75 percent of this difference
 
-        var finalpfcoffpkcost = energyoffpkcost * correction * 0.0075;
-        var finalpfcpkcost = energypkcost * correction * 0.0075;
+        var finalpfcoffpkcost = finaloffpkcost * correction * 0.0075;
+        var finalpfcpkcost = finalpkcost * correction * 0.0075;
         document.getElementById("srpfcbill").innerHTML =
           "<span class='text-danger'>-</span>";
         document.getElementById("offpkpfcbill").innerHTML =
@@ -629,14 +629,14 @@ function calculateDemandCharge() {
     }
 
     //power factor correction
-    var calculatedPF = calcPF(energysrunit, 0);
+    var calculatedPF = calcPF(finalsrunit, 0);
     if (!isNaN(calculatedPF)) {
-      console.log("valid pf value");
+      console.log("valid pf value: "+calculatedPF);
       document.getElementById("srpfval").innerHTML = calculatedPF;
       document.getElementById("offpkpfval").innerHTML = calculatedPF;
       document.getElementById("pkpfval").innerHTML = calculatedPF;
 
-      if (calculatedPF > 0 && calculatedPF < 0.95) {
+      if (calculatedPF > 0.0 && calculatedPF < 0.95) {
         //pfc unit calculation
         var standardsrunit = (energysrunit * 0.95) / calculatedPF;
         var finalpfcsrunit = standardsrunit - energysrunit;
@@ -649,11 +649,11 @@ function calculateDemandCharge() {
         document.getElementById("pkpfcunit").innerHTML =
           "<span class='text-danger'>-</span>";
 
-        //pfc charge calculation
+        //pfc charge calculation, range between 0.75 to 0.95
         calculatedPF = Math.min(Math.max(0.75, calculatedPF), 0.95); // in between 0.75 and 0.95
         var correction = (0.95 - calculatedPF) * 100; //0.75 percent of this difference
 
-        var finalpfcsrcost = energysrcost * correction * 0.0075;
+        var finalpfcsrcost = finalsrcost * correction * 0.0075;
         document.getElementById("srpfcbill").innerHTML =
           finalpfcsrcost.toFixed(2);
         document.getElementById("offpkpfcbill").innerHTML =
