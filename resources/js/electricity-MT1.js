@@ -23,6 +23,8 @@ var minOffPkUnit = 0;
 var minXfCap = 1;
 var minXfDays = 1;
 var maxXfDays = 31;
+var lowxfrent = 2.5;
+var highxfrent = 5;
 
 ///initializing all the fields
 initializeFields();
@@ -32,16 +34,15 @@ function initializeFields() {
 
   document.getElementById("kwhomf").value = minOMF;
   document.getElementById("kwhoffpkbilledunit").value = minOffPkUnit;
+  document.getElementById("kwhpkbilledunit").value = "";
 
   document.getElementById("kvarhomf").value = minOMF;
   document.getElementById("kvarhoffpkbilledunit").value = minOffPkUnit;
+  document.getElementById("kvarhpkbilledunit").value = "";
 
   document.getElementById("kwomf").value = minOMF;
   document.getElementById("kwbilledunit").value = minMaxDemand;
-
   document.getElementById("sloadunit").value = minSLoad;
-
-  // calculateDemandCharge();
 }
 
 ///client side energy rate show section
@@ -53,12 +54,11 @@ function loadMT1Rates() {
 
 ///kWh single register or off-peak units to bill validation
 var kwhoffpkunitelm = document.getElementById("kwhoffpkbilledunit");
-kwhoffpkunitelm.addEventListener("keyup", calculateDemandCharge);
-kwhoffpkunitelm.addEventListener("change", calculateDemandCharge);
+kwhoffpkunitelm.addEventListener("keyup", generateBill);
+kwhoffpkunitelm.addEventListener("change", generateBill);
 
 function validatekWhOffpkUnit() {
   let kwhoffpkbilledunitval = Number(kwhoffpkunitelm.value);
-  // let isvalid = Number.isSafeInteger(kwhoffpkbilledunit);
   kwhoffpkunitelm.classList.remove("is-invalid", "is-valid");
   if (
     kwhoffpkunitelm.value != "" &&
@@ -74,20 +74,20 @@ function validatekWhOffpkUnit() {
     return NaN;
   }
 
-  // calculateDemandCharge();
+  return NaN;
 }
 
 ///kWh peak units to bill validation
 var kwhpkunitelm = document.getElementById("kwhpkbilledunit");
-kwhpkunitelm.addEventListener("keyup", calculateDemandCharge);
-kwhpkunitelm.addEventListener("change", calculateDemandCharge);
+kwhpkunitelm.addEventListener("keyup", generateBill);
+kwhpkunitelm.addEventListener("change", generateBill);
 
 function validatekWhPkUnit() {
   if (kwhpkunitelm.value == "") {
+    //empty value is allowed
     kwhpkunitelm.classList.remove("is-invalid", "is-valid");
   } else {
     let kwhpkbilledunitval = Number(kwhpkunitelm.value);
-    // let isvalid = Number.isSafeInteger(kwhpkbilledunit);
     kwhpkunitelm.classList.remove("is-invalid", "is-valid");
     if (!isNaN(kwhpkbilledunitval) && kwhpkbilledunitval >= 0) {
       console.log("valid peak units to bill");
@@ -100,17 +100,16 @@ function validatekWhPkUnit() {
     }
   }
 
-  // calculateDemandCharge();
+  return NaN;
 }
 
 //kvarh single register or off-peak units to bill
 var kvarhoffpkunitelm = document.getElementById("kvarhoffpkbilledunit");
-kvarhoffpkunitelm.addEventListener("keyup", calculateDemandCharge);
-kvarhoffpkunitelm.addEventListener("change", calculateDemandCharge);
+kvarhoffpkunitelm.addEventListener("keyup", generateBill);
+kvarhoffpkunitelm.addEventListener("change", generateBill);
 
 function validatekVArhOffpkUnit() {
   let kvarhoffpkbilledunitval = Number(kvarhoffpkunitelm.value);
-  // let isvalid = Number.isSafeInteger(kvarhoffpkbilledunit);
   kvarhoffpkunitelm.classList.remove("is-invalid", "is-valid");
   if (
     kvarhoffpkunitelm.value != "" &&
@@ -126,20 +125,20 @@ function validatekVArhOffpkUnit() {
     return NaN;
   }
 
-  // calculateDemandCharge();
+  return NaN;
 }
 
 ///kvarh peak units to bill validation
 var kvarhpkunitelm = document.getElementById("kvarhpkbilledunit");
-kvarhpkunitelm.addEventListener("keyup", calculateDemandCharge);
-kvarhpkunitelm.addEventListener("change", calculateDemandCharge);
+kvarhpkunitelm.addEventListener("keyup", generateBill);
+kvarhpkunitelm.addEventListener("change", generateBill);
 
 function validatekVArhPkUnit() {
   if (kvarhpkunitelm.value == "") {
+    //empty value is allowed
     kvarhpkunitelm.classList.remove("is-invalid", "is-valid");
   } else {
     let kvarhpkbilledunitval = Number(kvarhpkunitelm.value);
-    // let isvalid = Number.isSafeInteger(kvarhpkbilledunit);
     kvarhpkunitelm.classList.remove("is-invalid", "is-valid");
     if (!isNaN(kvarhpkbilledunitval) && kvarhpkbilledunitval >= 0) {
       console.log("valid peak kvarh units to bill");
@@ -152,17 +151,16 @@ function validatekVArhPkUnit() {
     }
   }
 
-  // calculateDemandCharge();
+  return NaN;
 }
 
-//kw units to bill
+//kw units to bill validation
 var kwunitelm = document.getElementById("kwbilledunit");
-kwunitelm.addEventListener("keyup", calculateDemandCharge);
-kwunitelm.addEventListener("change", calculateDemandCharge);
+kwunitelm.addEventListener("keyup", generateBill);
+kwunitelm.addEventListener("change", generateBill);
 
 function validatekWUnit() {
   let kwbilledunitval = Number(kwunitelm.value);
-  // let isvalid = Number.isSafeInteger(kwbilledunit);
   kwunitelm.classList.remove("is-invalid", "is-valid");
   if (
     kwunitelm.value != "" &&
@@ -178,17 +176,17 @@ function validatekWUnit() {
     return NaN;
   }
 
-  // calculateDemandCharge();
+  return NaN;
 }
 
 ///sanctioned load validation
 var sloadelm = document.getElementById("sloadunit");
-sloadelm.addEventListener("keyup", calculateDemandCharge);
-sloadelm.addEventListener("change", calculateDemandCharge);
+sloadelm.addEventListener("keyup", generateBill);
+sloadelm.addEventListener("change", generateBill);
 
 function validateSLoad() {
   let sload = parseFloat(sloadelm.value);
-  let isvalid = Number.isSafeInteger(sload);
+  let isvalid = Number.isSafeInteger(sload); //must be an integer
   sloadelm.classList.remove("is-invalid", "is-valid");
   if (isvalid && sload >= minSLoad) {
     console.log("valid sanction load");
@@ -200,17 +198,16 @@ function validateSLoad() {
     return NaN;
   }
 
-  // calculateDemandCharge();
+  return NaN;
 }
 
-//kwhomf units to bill
+//kwhomf units to bill validation
 var kwhomfelm = document.getElementById("kwhomf");
-kwhomfelm.addEventListener("keyup", calculateDemandCharge);
-kwhomfelm.addEventListener("change", calculateDemandCharge);
+kwhomfelm.addEventListener("keyup", generateBill);
+kwhomfelm.addEventListener("change", generateBill);
 
 function validatekWhOMFUnit() {
   let kwhomfelmval = Number(kwhomfelm.value);
-  // let isvalid = Number.isSafeInteger(kwbilledunit);
   kwhomfelm.classList.remove("is-invalid", "is-valid");
   if (kwhomfelm.value != "" && !isNaN(kwhomfelmval) && kwhomfelmval >= minOMF) {
     console.log("valid omf units to bill");
@@ -222,17 +219,16 @@ function validatekWhOMFUnit() {
     return NaN;
   }
 
-  // calculateDemandCharge();
+  return NaN;
 }
 
-//kvarhomf units to bill
+//kvarhomf units to bill validation
 var kvarhomfelm = document.getElementById("kvarhomf");
-kvarhomfelm.addEventListener("keyup", calculateDemandCharge);
-kvarhomfelm.addEventListener("change", calculateDemandCharge);
+kvarhomfelm.addEventListener("keyup", generateBill);
+kvarhomfelm.addEventListener("change", generateBill);
 
 function validatekVArhOMFUnit() {
   let kvarhomfelmval = Number(kvarhomfelm.value);
-  // let isvalid = Number.isSafeInteger(kwbilledunit);
   kvarhomfelm.classList.remove("is-invalid", "is-valid");
   if (
     kvarhomfelm.value != "" &&
@@ -248,13 +244,13 @@ function validatekVArhOMFUnit() {
     return NaN;
   }
 
-  // calculateDemandCharge();
+  return NaN;
 }
 
 //kwomf units to bill
 var kwomfelm = document.getElementById("kwomf");
-kwomfelm.addEventListener("keyup", calculateDemandCharge);
-kwomfelm.addEventListener("change", calculateDemandCharge);
+kwomfelm.addEventListener("keyup", generateBill);
+kwomfelm.addEventListener("change", generateBill);
 
 function validatekWOMFUnit() {
   let kwomfelmval = Number(kwomfelm.value);
@@ -270,18 +266,19 @@ function validatekWOMFUnit() {
     return NaN;
   }
 
-  // calculateDemandCharge();
+  return NaN;
 }
 
 //xfcap validadtion
 var xfcapelm = document.getElementById("xfcap");
-xfcapelm.addEventListener("keyup", calculateDemandCharge);
-xfcapelm.addEventListener("change", calculateDemandCharge);
+xfcapelm.addEventListener("keyup", generateBill);
+xfcapelm.addEventListener("change", generateBill);
 
 function validateXfCap() {
   let xfcapelmval = Number(xfcapelm.value);
   xfcapelm.classList.remove("is-invalid", "is-valid");
   if (xfcapelm.value == "") {
+    //empty value is allowed
     xfcapelm.classList.remove("is-invalid", "is-valid");
   } else if (!isNaN(xfcapelmval) && xfcapelmval >= minXfCap) {
     console.log("valid xf capacity");
@@ -293,18 +290,19 @@ function validateXfCap() {
     return NaN;
   }
 
-  // calculateDemandCharge();
+  return NaN;
 }
 
 //xfdays validadtion
 var xfdayselm = document.getElementById("xfdays");
-xfdayselm.addEventListener("keyup", calculateDemandCharge);
-xfdayselm.addEventListener("change", calculateDemandCharge);
+xfdayselm.addEventListener("keyup", generateBill);
+xfdayselm.addEventListener("change", generateBill);
 
 function validateXfDays() {
   let xfdayselmval = Number(xfdayselm.value);
   xfdayselm.classList.remove("is-invalid", "is-valid");
   if (xfdayselm.value == "") {
+    //empty value is allowed
     xfdayselm.classList.remove("is-invalid", "is-valid");
   } else if (
     !isNaN(xfdayselmval) &&
@@ -320,13 +318,13 @@ function validateXfDays() {
     return NaN;
   }
 
-  // calculateDemandCharge();
+  return NaN;
 }
 
 //xfrate validadtion
 var xfrateelm = document.getElementById("xfrate");
-xfrateelm.addEventListener("keyup", calculateDemandCharge);
-xfrateelm.addEventListener("change", calculateDemandCharge);
+xfrateelm.addEventListener("keyup", generateBill);
+xfrateelm.addEventListener("change", generateBill);
 
 function validateXfRate() {
   var xfrateelmval = xfrateelm.value;
@@ -337,18 +335,18 @@ function validateXfRate() {
   ) {
     console.log("valid xf rate");
     xfrateelm.classList.add("is-valid");
-    if (xfrateelmval == "lowrate") return 2.5;
-    else return 5;
+    if (xfrateelmval == "lowrate") return lowxfrent;
+    else return highxfrent;
   } else {
     console.log("invalid xf rate");
     xfrateelm.classList.add("is-invalid");
     return NaN;
   }
 
-  // calculateDemandCharge();
+  return NaN;
 }
 
-//function for calculating pf value
+//function for calculating the power factor value
 function calcPF(offpkunit, pkunit) {
   var kvarhomfval = validatekVArhOMFUnit();
   var kvarhoffpkval = validatekVArhOffpkUnit();
@@ -366,25 +364,21 @@ function calcPF(offpkunit, pkunit) {
     var taninverse = Math.atan(totalkvarhunit / (offpkunit + pkunit));
     var pf = Math.cos(taninverse);
     return pf.toFixed(2);
-  } else {
-    return NaN;
   }
+
+  return NaN;
 }
 
-document
-  .getElementById("ltside")
-  .addEventListener("change", calculateDemandCharge);
-document
-  .getElementById("htside")
-  .addEventListener("change", calculateDemandCharge);
+document.getElementById("ltside").addEventListener("change", generateBill);
+document.getElementById("htside").addEventListener("change", generateBill);
 
-///first step - demand cost calculate section
-function calculateDemandCharge() {
+//Bill generation section
+function generateBill() {
   //Demand Charge Calculation Section
   var demandcost = NaN;
+  var kwomfval = validatekWOMFUnit();
   var maxDemand = validatekWUnit();
   var sLoad = validateSLoad();
-  var kwomfval = validatekWOMFUnit();
 
   if (!isNaN(maxDemand) && !isNaN(sLoad) && !isNaN(kwomfval)) {
     var cLoad = maxDemand * kwomfval;
@@ -420,10 +414,10 @@ function calculateDemandCharge() {
   var energycost = NaN;
   var energyunit = NaN;
 
-  //calculating regular enercy unit and energy charge
+  //calculating regular energy unit and energy charge
+  var kwhomfval = validatekWhOMFUnit();
   var offpkunit = validatekWhOffpkUnit();
   var pkunit = validatekWhPkUnit();
-  var kwhomfval = validatekWhOMFUnit();
   if (!isNaN(offpkunit) && !isNaN(pkunit) && !isNaN(kwhomfval)) {
     //double register meter
     var energyoffpkunit = 0;
@@ -450,12 +444,11 @@ function calculateDemandCharge() {
     energyoffpkcost += finaloffpkcost;
     energypkcost += finalpkcost;
 
-    //transformer loss consideration
+    //transformer loss section
     if (document.getElementById("ltside").checked) {
-      //consider transformer loss
-      var finalxfoffpkunit = finaloffpkunit * 0.025;
+      var finalxfoffpkunit = finaloffpkunit * 0.025; //2.5%
       var finalxfoffpkcost = finalxfoffpkunit * mt_1["offpkrate"];
-      var finalxfpkunit = finalpkunit * 0.025;
+      var finalxfpkunit = finalpkunit * 0.025; //2.5%
       var finalxfpkcost = finalxfpkunit * mt_1["pkrate"];
 
       document.getElementById("srxfunit").innerHTML =
@@ -474,7 +467,6 @@ function calculateDemandCharge() {
       energyoffpkcost += finalxfoffpkcost;
       energypkcost += finalxfpkcost;
     } else {
-      //double register meter
       document.getElementById("srxfunit").innerHTML =
         "<span class='text-danger'>-</span>";
       document.getElementById("srxfbill").innerHTML =
@@ -489,23 +481,23 @@ function calculateDemandCharge() {
         "<span class='text-danger'>-</span>";
     }
 
-    //power factor correction
+    //power factor correction section
     var calculatedPF = calcPF(finaloffpkunit, finalpkunit);
     if (!isNaN(calculatedPF)) {
-      console.log("valid pf value: "+calculatedPF);
+      console.log("valid pf value: " + calculatedPF);
       document.getElementById("srpfval").innerHTML = calculatedPF;
       document.getElementById("offpkpfval").innerHTML = calculatedPF;
       document.getElementById("pkpfval").innerHTML = calculatedPF;
 
       if (calculatedPF > 0.0 && calculatedPF < 0.95) {
-        //pfc unit calculation
-        var standardoffpkunit = (energyoffpkunit * 0.95) / calculatedPF;
-        var finalpfcoffpkunit = standardoffpkunit - energyoffpkunit;
+        //pfc unit calculation, considering transformer loss if any
+        var requiredoffpkunit = (energyoffpkunit * 0.95) / calculatedPF;
+        var finalpfcoffpkunit = requiredoffpkunit - energyoffpkunit;
         document.getElementById("offpkpfcunit").innerHTML =
           finalpfcoffpkunit.toFixed(2);
 
-        var standardpkunit = (energypkunit * 0.95) / calculatedPF;
-        var finalpfcpkunit = standardpkunit - energypkunit;
+        var requiredpkunit = (energypkunit * 0.95) / calculatedPF;
+        var finalpfcpkunit = requiredpkunit - energypkunit;
         document.getElementById("pkpfcunit").innerHTML =
           finalpfcpkunit.toFixed(2);
 
@@ -518,6 +510,7 @@ function calculateDemandCharge() {
         calculatedPF = Math.min(Math.max(0.75, calculatedPF), 0.95); // in between 0.75 and 0.95
         var correction = (0.95 - calculatedPF) * 100; //0.75 percent of this difference
 
+        //only considers the offpk and pk energy charges
         var finalpfcoffpkcost = finaloffpkcost * correction * 0.0075;
         var finalpfcpkcost = finalpkcost * correction * 0.0075;
         document.getElementById("srpfcbill").innerHTML =
@@ -593,10 +586,9 @@ function calculateDemandCharge() {
     energysrunit = finalsrunit;
     energysrcost = finalsrcost;
 
-    //transformer loss consideration
+    //transformer loss section
     if (document.getElementById("ltside").checked) {
-      //consider transformer loss
-      var finalxfsrunit = finalsrunit * 0.025;
+      var finalxfsrunit = finalsrunit * 0.025; // 2.5%
       var finalxfsrcost = finalxfsrunit * mt_1["srrate"];
 
       document.getElementById("srxfunit").innerHTML = finalxfsrunit.toFixed(2);
@@ -628,16 +620,16 @@ function calculateDemandCharge() {
         "<span class='text-danger'>-</span>";
     }
 
-    //power factor correction
+    //power factor correction section
     var calculatedPF = calcPF(finalsrunit, 0);
     if (!isNaN(calculatedPF)) {
-      console.log("valid pf value: "+calculatedPF);
+      console.log("valid pf value: " + calculatedPF);
       document.getElementById("srpfval").innerHTML = calculatedPF;
       document.getElementById("offpkpfval").innerHTML = calculatedPF;
       document.getElementById("pkpfval").innerHTML = calculatedPF;
 
       if (calculatedPF > 0.0 && calculatedPF < 0.95) {
-        //pfc unit calculation
+        //pfc unit calculation, considering transformer loss unit if any
         var standardsrunit = (energysrunit * 0.95) / calculatedPF;
         var finalpfcsrunit = standardsrunit - energysrunit;
         document.getElementById("srpfcunit").innerHTML =
@@ -653,6 +645,7 @@ function calculateDemandCharge() {
         calculatedPF = Math.min(Math.max(0.75, calculatedPF), 0.95); // in between 0.75 and 0.95
         var correction = (0.95 - calculatedPF) * 100; //0.75 percent of this difference
 
+        //only considers the sr unit energy costs
         var finalpfcsrcost = finalsrcost * correction * 0.0075;
         document.getElementById("srpfcbill").innerHTML =
           finalpfcsrcost.toFixed(2);
@@ -717,6 +710,7 @@ function calculateDemandCharge() {
       "<span class='text-danger'>-</span>";
     document.getElementById("pkbill").innerHTML =
       "<span class='text-danger'>-</span>";
+
     document.getElementById("srpfcunit").innerHTML =
       "<span class='text-danger'>-</span>";
     document.getElementById("srpfcbill").innerHTML =
@@ -729,9 +723,23 @@ function calculateDemandCharge() {
       "<span class='text-danger'>-</span>";
     document.getElementById("pkpfcbill").innerHTML =
       "<span class='text-danger'>-</span>";
+
+    document.getElementById("srxfunit").innerHTML =
+      "<span class='text-danger'>-</span>";
+    document.getElementById("srxfbill").innerHTML =
+      "<span class='text-danger'>-</span>";
+    document.getElementById("offpkxfunit").innerHTML =
+      "<span class='text-danger'>-</span>";
+    document.getElementById("offpkxfbill").innerHTML =
+      "<span class='text-danger'>-</span>";
+    document.getElementById("pkxfunit").innerHTML =
+      "<span class='text-danger'>-</span>";
+    document.getElementById("pkxfbill").innerHTML =
+      "<span class='text-danger'>-</span>";
   }
 
-  if (!isNaN(energyunit)) {
+  //total energy unit and energy cost placement
+  if (!isNaN(energyunit) && !isNaN(energycost)) {
     document.getElementById("energyunit").innerHTML = energyunit.toFixed(2);
     document.getElementById("energycost").innerHTML = energycost.toFixed(2);
   } else {
@@ -746,7 +754,7 @@ function calculateDemandCharge() {
   var xfcapval = validateXfCap();
   var xfdaysval = validateXfDays();
   var xfrateval = validateXfRate();
-  if (!isNaN(xfcapval) && !isNaN(xfdaysval) && xfrateval != "") {
+  if (!isNaN(xfcapval) && !isNaN(xfdaysval) && !isNaN(xfrateval)) {
     var xfRentCost = xfcapval * xfrateval * xfdaysval;
     document.getElementById("xfrentrate").innerHTML =
       xfrateval + " x " + xfcapval + " x " + xfdaysval;
@@ -764,9 +772,9 @@ function calculateDemandCharge() {
 
 ///principal bill, vat and total bill update
 function updatetotalbill(demandcost, energycost, xfrentcost) {
-  console.log("energycost = " + energycost + " , demandcost = " + demandcost);
+  console.log("energycost = " + energycost + " , demandcost = " + demandcost+" , xfrentcost = "+xfrentcost);
 
-  if (!isNaN(energycost) && !isNaN(demandcost)) {
+  if (!isNaN(energycost) && !isNaN(demandcost)) { //xfrentcost is optional
     let principal = energycost + demandcost;
     if (!isNaN(xfrentcost)) principal += xfrentcost;
     let vat = principal * 0.05;
