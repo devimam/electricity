@@ -23,6 +23,7 @@ var minOffPkUnit = 0;
 var minXfCap = 1;
 var minXfDays = 1;
 var maxXfDays = 31;
+var minChildUnit = 1;
 var lowxfrent = 2.5;
 var highxfrent = 5;
 
@@ -321,6 +322,30 @@ function validateXfDays() {
   return NaN;
 }
 
+//childunit validadtion
+var childunitelm = document.getElementById("childunit");
+childunitelm.addEventListener("keyup", generateBill);
+childunitelm.addEventListener("change", generateBill);
+
+function validateChildUnit() {
+  let childunitelmval = Number(childunitelm.value);
+  childunitelm.classList.remove("is-invalid", "is-valid");
+  if (childunitelm.value == "") {
+    //empty value is allowed
+    childunitelm.classList.remove("is-invalid", "is-valid");
+  } else if (!isNaN(childunitelmval) && childunitelmval >= minChildUnit) {
+    console.log("valid child unit");
+    childunitelm.classList.add("is-valid");
+    return childunitelmval;
+  } else {
+    console.log("invalid child unit");
+    childunitelm.classList.add("is-invalid");
+    return NaN;
+  }
+
+  return NaN;
+}
+
 //xfrate validadtion
 var xfrateelm = document.getElementById("xfrate");
 xfrateelm.addEventListener("keyup", generateBill);
@@ -434,15 +459,62 @@ function generateBill() {
       "<span class='text-danger'>-</span>";
     document.getElementById("srbill").innerHTML =
       "<span class='text-danger'>-</span>";
-    document.getElementById("offpkunit").innerHTML = finaloffpkunit.toFixed(2);
-    document.getElementById("offpkbill").innerHTML = finaloffpkcost.toFixed(2);
-    document.getElementById("pkunit").innerHTML = finalpkunit.toFixed(2);
-    document.getElementById("pkbill").innerHTML = finalpkcost.toFixed(2);
+    //child unit section
+    var childunit = validateChildUnit();
+    var childunitoffpk = NaN;
+    var childunitpk = NaN;
+    var childunitoffpkcost = NaN;
+    var childunitpkcost = NaN;
+    if (!isNaN(childunit)) {
+      //valid child unit found, distributing based on the off pk and pk unit ratio
+      childunitoffpk = Math.round(
+        (finaloffpkunit * childunit) / (finaloffpkunit + finalpkunit),
+      );
+      childunitoffpk = Math.min(childunitoffpk, finaloffpkunit); //child unit can't be more than the mother meter unit
+      childunitoffpkcost = childunitoffpk * mt_1["offpkrate"];
+      childunitpk = Math.round(
+        (finalpkunit * childunit) / (finaloffpkunit + finalpkunit),
+      );
+      childunitpk = Math.min(childunitpk, finalpkunit);
+      childunitpkcost = childunitpk * mt_1["pkrate"];
 
-    energyoffpkunit += finaloffpkunit;
-    energypkunit += finalpkunit;
-    energyoffpkcost += finaloffpkcost;
-    energypkcost += finalpkcost;
+      document.getElementById("offpkunit").innerHTML =
+        finaloffpkunit.toFixed(2) +
+        " - " +
+        childunitoffpk.toFixed(2) +
+        " = " +
+        (finaloffpkunit - childunitoffpk).toFixed(2);
+      document.getElementById("offpkbill").innerHTML = (
+        finaloffpkcost - childunitoffpkcost
+      ).toFixed(2);
+      document.getElementById("pkunit").innerHTML =
+        finalpkunit.toFixed(2) +
+        " - " +
+        childunitpk.toFixed(2) +
+        " = " +
+        (finalpkunit - childunitpk).toFixed(2);
+      document.getElementById("pkbill").innerHTML = (
+        finalpkcost - childunitpkcost
+      ).toFixed(2);
+
+      energyoffpkunit += finaloffpkunit - childunitoffpk;
+      energypkunit += finalpkunit - childunitpk;
+      energyoffpkcost += finaloffpkcost - childunitoffpkcost;
+      energypkcost += finalpkcost - childunitpkcost;
+    } else {
+      //no valid child unit
+      document.getElementById("offpkunit").innerHTML =
+        finaloffpkunit.toFixed(2);
+      document.getElementById("offpkbill").innerHTML =
+        finaloffpkcost.toFixed(2);
+      document.getElementById("pkunit").innerHTML = finalpkunit.toFixed(2);
+      document.getElementById("pkbill").innerHTML = finalpkcost.toFixed(2);
+
+      energyoffpkunit += finaloffpkunit;
+      energypkunit += finalpkunit;
+      energyoffpkcost += finaloffpkcost;
+      energypkcost += finalpkcost;
+    }
 
     //transformer loss section
     if (document.getElementById("ltside").checked) {
@@ -511,8 +583,15 @@ function generateBill() {
         var correction = (0.95 - calculatedPF) * 100; //0.75 percent of this difference
 
         //only considers the offpk and pk energy charges
-        var finalpfcoffpkcost = finaloffpkcost * correction * 0.0075;
-        var finalpfcpkcost = finalpkcost * correction * 0.0075;
+        var finalpfcoffpkcost =
+          (finaloffpkcost -
+            (isNaN(childunitoffpkcost) ? 0 : childunitoffpkcost)) *
+          correction *
+          0.0075;
+        var finalpfcpkcost =
+          (finalpkcost - (isNaN(childunitpkcost) ? 0 : childunitpkcost)) *
+          correction *
+          0.0075;
         document.getElementById("srpfcbill").innerHTML =
           "<span class='text-danger'>-</span>";
         document.getElementById("offpkpfcbill").innerHTML =
@@ -572,8 +651,6 @@ function generateBill() {
     var finalsrunit = offpkunit * kwhomfval;
     var finalsrcost = finalsrunit * mt_1["srrate"];
 
-    document.getElementById("srunit").innerHTML = finalsrunit.toFixed(2);
-    document.getElementById("srbill").innerHTML = finalsrcost.toFixed(2);
     document.getElementById("offpkunit").innerHTML =
       "<span class='text-danger'>-</span>";
     document.getElementById("offpkbill").innerHTML =
@@ -582,9 +659,34 @@ function generateBill() {
       "<span class='text-danger'>-</span>";
     document.getElementById("pkbill").innerHTML =
       "<span class='text-danger'>-</span>";
+    //child unit section
+    var childunit = validateChildUnit();
+    var childunitsr = NaN;
+    var childunitsrcost = NaN;
+    if (!isNaN(childunit)) {
+      //valid child unit found
+      childunitsr = Math.min(childunit, finalsrunit); //child unit can't be more than the mother meter unit
+      childunitsrcost = childunitsr * mt_1["srrate"];
 
-    energysrunit = finalsrunit;
-    energysrcost = finalsrcost;
+      document.getElementById("srunit").innerHTML =
+        finalsrunit.toFixed(2) +
+        " - " +
+        childunitsr.toFixed(2) +
+        " = " +
+        (finalsrunit - childunitsr).toFixed(2);
+      document.getElementById("srbill").innerHTML = (
+        finalsrcost - childunitsrcost
+      ).toFixed(2);
+
+      energysrunit += finalsrunit - childunitsr;
+      energysrcost += finalsrcost - childunitsrcost;
+    } else {
+      document.getElementById("srunit").innerHTML = finalsrunit.toFixed(2);
+      document.getElementById("srbill").innerHTML = finalsrcost.toFixed(2);
+
+      energysrunit = finalsrunit;
+      energysrcost = finalsrcost;
+    }
 
     //transformer loss section
     if (document.getElementById("ltside").checked) {
@@ -646,7 +748,7 @@ function generateBill() {
         var correction = (0.95 - calculatedPF) * 100; //0.75 percent of this difference
 
         //only considers the sr unit energy costs
-        var finalpfcsrcost = finalsrcost * correction * 0.0075;
+        var finalpfcsrcost = (finalsrcost-(isNaN(childunitsrcost) ? 0 : childunitsrcost)) * correction * 0.0075;
         document.getElementById("srpfcbill").innerHTML =
           finalpfcsrcost.toFixed(2);
         document.getElementById("offpkpfcbill").innerHTML =
@@ -772,9 +874,17 @@ function generateBill() {
 
 ///principal bill, vat and total bill update
 function updatetotalbill(demandcost, energycost, xfrentcost) {
-  console.log("energycost = " + energycost + " , demandcost = " + demandcost+" , xfrentcost = "+xfrentcost);
+  console.log(
+    "energycost = " +
+      energycost +
+      " , demandcost = " +
+      demandcost +
+      " , xfrentcost = " +
+      xfrentcost,
+  );
 
-  if (!isNaN(energycost) && !isNaN(demandcost)) { //xfrentcost is optional
+  if (!isNaN(energycost) && !isNaN(demandcost)) {
+    //xfrentcost is optional
     let principal = energycost + demandcost;
     if (!isNaN(xfrentcost)) principal += xfrentcost;
     let vat = principal * 0.05;
