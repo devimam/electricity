@@ -26,6 +26,7 @@ var maxXfDays = 31;
 var minChildUnit = 1;
 var lowxfrent = 2.5;
 var highxfrent = 5;
+var minXFLoss = 0;
 
 ///initializing all the fields
 initializeFields();
@@ -346,6 +347,30 @@ function validateChildUnit() {
   return NaN;
 }
 
+//transformer loss validadtion
+var xflosselm = document.getElementById("xfloss");
+xflosselm.addEventListener("keyup", generateBill);
+xflosselm.addEventListener("change", generateBill);
+
+function validateXFLoss() {
+  let xflosselmval = Number(xflosselm.value);
+  xflosselm.classList.remove("is-invalid", "is-valid");
+  if (xflosselm.value == "") {
+    //empty value is allowed
+    xflosselm.classList.remove("is-invalid", "is-valid");
+  } else if (!isNaN(xflosselmval) && xflosselmval > minXFLoss) {
+    console.log("valid xf loss");
+    xflosselm.classList.add("is-valid");
+    return xflosselmval;
+  } else {
+    console.log("invalid xf loss");
+    xflosselm.classList.add("is-invalid");
+    return NaN;
+  }
+
+  return NaN;
+}
+
 //xfrate validadtion
 var xfrateelm = document.getElementById("xfrate");
 xfrateelm.addEventListener("keyup", generateBill);
@@ -393,9 +418,6 @@ function calcPF(offpkunit, pkunit) {
 
   return NaN;
 }
-
-document.getElementById("ltside").addEventListener("change", generateBill);
-document.getElementById("htside").addEventListener("change", generateBill);
 
 //Bill generation section
 function generateBill() {
@@ -516,11 +538,11 @@ function generateBill() {
       energypkcost += finalpkcost;
     }
 
-    //transformer loss section
-    if (document.getElementById("ltside").checked) {
-      var finalxfoffpkunit = finaloffpkunit * 0.025; //2.5%
+    var xflosspercentage = validateXFLoss();
+    if (!isNaN(xflosspercentage) && xflosspercentage > minXFLoss) {
+      var finalxfoffpkunit = finaloffpkunit * xflosspercentage * 0.01;
       var finalxfoffpkcost = finalxfoffpkunit * mt_1["offpkrate"];
-      var finalxfpkunit = finalpkunit * 0.025; //2.5%
+      var finalxfpkunit = finalpkunit * xflosspercentage * 0.01;
       var finalxfpkcost = finalxfpkunit * mt_1["pkrate"];
 
       document.getElementById("srxfunit").innerHTML =
@@ -689,8 +711,9 @@ function generateBill() {
     }
 
     //transformer loss section
-    if (document.getElementById("ltside").checked) {
-      var finalxfsrunit = finalsrunit * 0.025; // 2.5%
+    var xflosspercentage = validateXFLoss();
+    if (!isNaN(xflosspercentage) && xflosspercentage > minXFLoss) {
+      var finalxfsrunit = finalsrunit * xflosspercentage * 0.01;
       var finalxfsrcost = finalxfsrunit * mt_1["srrate"];
 
       document.getElementById("srxfunit").innerHTML = finalxfsrunit.toFixed(2);
@@ -748,7 +771,10 @@ function generateBill() {
         var correction = (0.95 - calculatedPF) * 100; //0.75 percent of this difference
 
         //only considers the sr unit energy costs
-        var finalpfcsrcost = (finalsrcost-(isNaN(childunitsrcost) ? 0 : childunitsrcost)) * correction * 0.0075;
+        var finalpfcsrcost =
+          (finalsrcost - (isNaN(childunitsrcost) ? 0 : childunitsrcost)) *
+          correction *
+          0.0075;
         document.getElementById("srpfcbill").innerHTML =
           finalpfcsrcost.toFixed(2);
         document.getElementById("offpkpfcbill").innerHTML =
@@ -869,11 +895,11 @@ function generateBill() {
   }
 
   ///updating the total bill amount
-  updatetotalbill(demandcost, energycost, xfRentCost);
+  updateTotalBill(demandcost, energycost, xfRentCost);
 }
 
 ///principal bill, vat and total bill update
-function updatetotalbill(demandcost, energycost, xfrentcost) {
+function updateTotalBill(demandcost, energycost, xfrentcost) {
   console.log(
     "energycost = " +
       energycost +

@@ -570,120 +570,108 @@
                 </div>
               </div>
               <div class="card-body">
-                <!-- htside ltside selection -->
-                <div class="row justify-content-center">
-                  <div class="col-10 mb-2" id="htltside">
-                    <div
-                      class="btn-group w-100"
-                      role="group"
-                      aria-label="Basic radio toggle button group for htside or ltside metering selection"
-                    >
-                      <input
-                        type="radio"
-                        class="btn-check"
-                        name="ltsidecheck"
-                        id="htside"
-                        autocomplete="off"
-                        value="htside"
-                        checked
-                      />
-                      <label
-                        class="btn btn-sm btn-outline-secondary"
-                        for="htside"
-                        >HT Side Meter</label
-                      >
+                <!-- child unit section for submetered HT meters -->
+                <div class="mb-2">
+                  <div class="input-group input-group-sm mb-1 has-validation">
+                    <span class="input-group-text">Child Unit (if any)</span>
+                    <input
+                      type="text"
+                      id="childunit"
+                      class="form-control rounded-0"
+                      style="padding-right: 36px"
+                      placeholder="0"
+                    />
+                    <span class="input-group-text">kW</span>
+                  </div>
+                </div>
 
-                      <input
-                        type="radio"
-                        class="btn-check"
-                        name="ltsidecheck"
-                        id="ltside"
-                        value="ltside"
-                        autocomplete="off"
-                      />
-                      <label
-                        class="btn btn-sm btn-outline-secondary"
-                        for="ltside"
-                        >LT Side Meter</label
-                      >
-                    </div>
+                <!-- transformer loss section -->
+                <div class="mb-2">
+                  <div class="input-group input-group-sm mb-1 has-validation">
+                    <span class="input-group-text">Transformer Loss (if any)</span>
+                    <input
+                      type="text"
+                      id="xfloss"
+                      class="form-control rounded-0"
+                      style="padding-right: 36px"
+                      placeholder="2.5"
+                    />
+                    <span class="input-group-text">%</span>
                   </div>
                 </div>
 
                 <!-- transformer rent section -->
-                <div class="row justify-content-center">
-                  <div class="col-10 mb-2">
-                    <div class="accordion">
-                      <div class="accordion-item">
-                        <h2 class="accordion-header border">
-                          <button
-                            class="accordion-button text-bg-secondary collapsed"
-                            style="padding: 0.25rem 0.5rem; font-size: 0.875rem"
-                            type="button"
-                            data-bs-toggle="collapse"
-                            data-bs-target="#xfrentsection"
-                            aria-expanded="false"
-                            aria-controls="xfrentsection"
-                          >
-                            Transformer Rent (if applicable)
-                          </button>
-                        </h2>
-
-                        <div
-                          id="xfrentsection"
-                          class="accordion-collapse collapse"
+                <div class="mb-2">
+                  <div class="accordion">
+                    <div class="accordion-item">
+                      <h2 class="accordion-header border">
+                        <button
+                          class="accordion-button text-bg-secondary collapsed"
+                          style="padding: 0.25rem 0.5rem; font-size: 0.875rem"
+                          type="button"
+                          data-bs-toggle="collapse"
+                          data-bs-target="#xfrentsection"
+                          aria-expanded="false"
+                          aria-controls="xfrentsection"
                         >
-                          <div class="accordion-body border">
-                            <div
-                              class="input-group input-group-sm mb-1 has-validation"
-                            >
-                              <span class="input-group-text" style="width: 80px"
-                                >Capacity</span
-                              >
-                              <input
-                                type="text"
-                                id="xfcap"
-                                class="form-control rounded-0"
-                                style="padding-right: 36px; width: 80px"
-                                placeholder="0"
-                              />
-                              <span class="input-group-text" style="width: 40px"
-                                >kVA</span
-                              >
-                            </div>
+                          Transformer Rent (if applicable)
+                        </button>
+                      </h2>
 
-                            <div
-                              class="input-group input-group-sm mb-1 has-validation"
+                      <div
+                        id="xfrentsection"
+                        class="accordion-collapse collapse"
+                      >
+                        <div class="accordion-body border">
+                          <div
+                            class="input-group input-group-sm mb-1 has-validation"
+                          >
+                            <span class="input-group-text" style="width: 80px"
+                              >Capacity</span
                             >
-                              <span class="input-group-text" style="width: 80px"
-                                >Month size</span
-                              >
-                              <input
-                                type="text"
-                                id="xfdays"
-                                class="form-control rounded-0"
-                                style="padding-right: 36px; width: 80px"
-                                placeholder="0"
-                              />
-                              <span class="input-group-text" style="width: 40px"
-                                >days</span
-                              >
-                            </div>
+                            <input
+                              type="text"
+                              id="xfcap"
+                              class="form-control rounded-0"
+                              style="padding-right: 36px; width: 80px"
+                              placeholder="0"
+                            />
+                            <span class="input-group-text" style="width: 40px"
+                              >kVA</span
+                            >
+                          </div>
 
-                            <div
-                              class="input-group input-group-sm mb-1 has-validation"
+                          <div
+                            class="input-group input-group-sm mb-1 has-validation"
+                          >
+                            <span class="input-group-text" style="width: 80px"
+                              >Month size</span
                             >
-                              <span class="input-group-text" style="width: 80px"
-                                >Rate</span
-                              >
-                              <select
-                                class="form-select form-select-sm"
-                                id="xfrate"
-                              >
-                                <option value="lowrate">2.5 Tk</option>
-                                <option value="highrate" selected>5 Tk</option>
-                              </select>
-                            </div>
+                            <input
+                              type="text"
+                              id="xfdays"
+                              class="form-control rounded-0"
+                              style="padding-right: 36px; width: 80px"
+                              placeholder="0"
+                            />
+                            <span class="input-group-text" style="width: 40px"
+                              >days</span
+                            >
+                          </div>
+
+                          <div
+                            class="input-group input-group-sm mb-1 has-validation"
+                          >
+                            <span class="input-group-text" style="width: 80px"
+                              >Rate</span
+                            >
+                            <select
+                              class="form-select form-select-sm"
+                              id="xfrate"
+                            >
+                              <option value="lowrate">2.5 Tk</option>
+                              <option value="highrate" selected>5 Tk</option>
+                            </select>
                           </div>
                         </div>
                       </div>
@@ -691,22 +679,6 @@
                   </div>
                 </div>
 
-                <!-- child unit section for submetered HT meters -->
-                <div class="row justify-content-center">
-                  <div class="col-10 mb-2">
-                    <div class="input-group input-group-sm mb-1 has-validation">
-                      <span class="input-group-text">Child Unit (if any)</span>
-                      <input
-                        type="text"
-                        id="childunit"
-                        class="form-control rounded-0"
-                        style="padding-right: 36px"
-                        placeholder="0"
-                      />
-                      <span class="input-group-text">kW</span>
-                    </div>
-                  </div>
-                </div>
               </div>
             </div>
           </div>
@@ -792,7 +764,7 @@
                   id="srlabel"
                   class="bg-danger-subtle border border-danger-subtle"
                 >
-                  Single Register X-Former Loss Unit (2.5%)
+                  Single Register X-Former Loss Unit
                 </th>
                 <td
                   id="srxfrate"
@@ -813,7 +785,7 @@
                   id="offpklabel"
                   class="bg-danger-subtle border border-danger-subtle"
                 >
-                  Double Register - Offpeak X-Former Loss Unit (2.5%)
+                  Double Register - Offpeak X-Former Loss Unit
                 </th>
                 <td
                   id="offpkxfrate"
@@ -834,7 +806,7 @@
                   id="pklabel"
                   class="bg-danger-subtle border border-danger-subtle"
                 >
-                  Double Register - Peak X-Former Loss Unit (2.5%)
+                  Double Register - Peak X-Former Loss Unit
                 </th>
                 <td
                   id="pkxfrate"
