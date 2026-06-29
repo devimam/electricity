@@ -32,7 +32,7 @@ var minXFLoss = 0;
 initializeFields();
 
 function initializeFields() {
-  loadMT1Rates();
+  loadMT8Rates();
 
   document.getElementById("kwhomf").value = minOMF;
   document.getElementById("kwhoffpkbilledunit").value = minOffPkUnit;
@@ -48,7 +48,7 @@ function initializeFields() {
 }
 
 ///client side energy rate show section
-function loadMT1Rates() {
+function loadMT8Rates() {
   for (let key in mt_8) {
     document.getElementById(key).innerHTML = mt_8[key].toFixed(2); ///upto 2 decimal places
   }
@@ -660,10 +660,10 @@ function generateBill() {
 
     if (isNaN(energyunit)) {
       energyunit = energyoffpkunit + energypkunit;
-      energycost = energyoffpkcost + energyoffpkcost;
+      energycost = energyoffpkcost + energypkcost;
     } else {
       energyunit += energyoffpkunit + energypkunit;
-      energycost += energyoffpkcost + energyoffpkcost;
+      energycost += energyoffpkcost + energypkcost;
     }
   } else if (!isNaN(kwhomfval) && !isNaN(offpkunit)) {
     //single register meter

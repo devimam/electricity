@@ -6,7 +6,7 @@ All rights reserved
 */
 
 ///energy rate update section
-var mt_8 = {
+var mt_7 = {
   srrate: 22.56,
   offpkrate: 22.56,
   pkrate: 22.56,
@@ -32,7 +32,7 @@ var minXFLoss = 0;
 initializeFields();
 
 function initializeFields() {
-  loadMT1Rates();
+  loadMT6Rates();
 
   document.getElementById("kwhomf").value = minOMF;
   document.getElementById("kwhoffpkbilledunit").value = minOffPkUnit;
@@ -48,9 +48,9 @@ function initializeFields() {
 }
 
 ///client side energy rate show section
-function loadMT1Rates() {
-  for (let key in mt_8) {
-    document.getElementById(key).innerHTML = mt_8[key].toFixed(2); ///upto 2 decimal places
+function loadMT6Rates() {
+  for (let key in mt_7) {
+    document.getElementById(key).innerHTML = mt_7[key].toFixed(2); ///upto 2 decimal places
   }
 }
 
@@ -473,9 +473,9 @@ function generateBill() {
     var energypkcost = 0;
 
     var finaloffpkunit = offpkunit * kwhomfval;
-    var finaloffpkcost = finaloffpkunit * mt_8["offpkrate"];
+    var finaloffpkcost = finaloffpkunit * mt_7["offpkrate"];
     var finalpkunit = pkunit * kwhomfval;
-    var finalpkcost = finalpkunit * mt_8["pkrate"];
+    var finalpkcost = finalpkunit * mt_7["pkrate"];
 
     document.getElementById("srunit").innerHTML =
       "<span class='text-danger'>-</span>";
@@ -493,12 +493,12 @@ function generateBill() {
         (finaloffpkunit * childunit) / (finaloffpkunit + finalpkunit),
       );
       childunitoffpk = Math.min(childunitoffpk, finaloffpkunit); //child unit can't be more than the mother meter unit
-      childunitoffpkcost = childunitoffpk * mt_8["offpkrate"];
+      childunitoffpkcost = childunitoffpk * mt_7["offpkrate"];
       childunitpk = Math.round(
         (finalpkunit * childunit) / (finaloffpkunit + finalpkunit),
       );
       childunitpk = Math.min(childunitpk, finalpkunit);
-      childunitpkcost = childunitpk * mt_8["pkrate"];
+      childunitpkcost = childunitpk * mt_7["pkrate"];
 
       document.getElementById("offpkunit").innerHTML =
         finaloffpkunit.toFixed(2) +
@@ -541,9 +541,9 @@ function generateBill() {
     var xflosspercentage = validateXFLoss();
     if (!isNaN(xflosspercentage) && xflosspercentage > minXFLoss) {
       var finalxfoffpkunit = finaloffpkunit * xflosspercentage * 0.01;
-      var finalxfoffpkcost = finalxfoffpkunit * mt_8["offpkrate"];
+      var finalxfoffpkcost = finalxfoffpkunit * mt_7["offpkrate"];
       var finalxfpkunit = finalpkunit * xflosspercentage * 0.01;
-      var finalxfpkcost = finalxfpkunit * mt_8["pkrate"];
+      var finalxfpkcost = finalxfpkunit * mt_7["pkrate"];
 
       document.getElementById("srxfunit").innerHTML =
         "<span class='text-danger'>-</span>";
@@ -660,10 +660,10 @@ function generateBill() {
 
     if (isNaN(energyunit)) {
       energyunit = energyoffpkunit + energypkunit;
-      energycost = energyoffpkcost + energyoffpkcost;
+      energycost = energyoffpkcost + energypkcost;
     } else {
       energyunit += energyoffpkunit + energypkunit;
-      energycost += energyoffpkcost + energyoffpkcost;
+      energycost += energyoffpkcost + energypkcost;
     }
   } else if (!isNaN(kwhomfval) && !isNaN(offpkunit)) {
     //single register meter
@@ -671,7 +671,7 @@ function generateBill() {
     var energysrcost = 0;
 
     var finalsrunit = offpkunit * kwhomfval;
-    var finalsrcost = finalsrunit * mt_8["srrate"];
+    var finalsrcost = finalsrunit * mt_7["srrate"];
 
     document.getElementById("offpkunit").innerHTML =
       "<span class='text-danger'>-</span>";
@@ -688,7 +688,7 @@ function generateBill() {
     if (!isNaN(childunit)) {
       //valid child unit found
       childunitsr = Math.min(childunit, finalsrunit); //child unit can't be more than the mother meter unit
-      childunitsrcost = childunitsr * mt_8["srrate"];
+      childunitsrcost = childunitsr * mt_7["srrate"];
 
       document.getElementById("srunit").innerHTML =
         finalsrunit.toFixed(2) +
@@ -714,7 +714,7 @@ function generateBill() {
     var xflosspercentage = validateXFLoss();
     if (!isNaN(xflosspercentage) && xflosspercentage > minXFLoss) {
       var finalxfsrunit = finalsrunit * xflosspercentage * 0.01;
-      var finalxfsrcost = finalxfsrunit * mt_8["srrate"];
+      var finalxfsrcost = finalxfsrunit * mt_7["srrate"];
 
       document.getElementById("srxfunit").innerHTML = finalxfsrunit.toFixed(2);
       document.getElementById("srxfbill").innerHTML = finalxfsrcost.toFixed(2);

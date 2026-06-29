@@ -660,10 +660,10 @@ function generateBill() {
 
     if (isNaN(energyunit)) {
       energyunit = energyoffpkunit + energypkunit;
-      energycost = energyoffpkcost + energyoffpkcost;
+      energycost = energyoffpkcost + energypkcost;
     } else {
       energyunit += energyoffpkunit + energypkunit;
-      energycost += energyoffpkcost + energyoffpkcost;
+      energycost += energyoffpkcost + energypkcost;
     }
   } else if (!isNaN(kwhomfval) && !isNaN(offpkunit)) {
     //single register meter

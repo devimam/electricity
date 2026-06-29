@@ -180,7 +180,7 @@
                         <hr class="dropdown-divider" />
                       </li>
                       <li>
-                        <a class="dropdown-item active" href="index-MT1.html"
+                        <a class="dropdown-item" href="index-MT1.html"
                           ><span class="fw-semibold">MT-1</span> :
                           Residential</a
                         >
@@ -213,7 +213,7 @@
                         >
                       </li>
                       <li>
-                        <a class="dropdown-item" href="index-MT7.html"
+                        <a class="dropdown-item active" href="index-MT7.html"
                           ><span class="fw-semibold">MT-7</span> : Battery
                           Charging Station</a
                         >
@@ -367,7 +367,7 @@
 
       <main class="container-fluid">
         <div class="row">
-          <h1 class="text-center text-secondary">MT-1 : Residential</h1>
+          <h1 class="text-center text-secondary">MT-7 : Battery Charging Station</h1>
           <hr />
         </div>
 
@@ -402,6 +402,25 @@
                       <input
                         type="text"
                         id="kwhoffpkbilledunit"
+                        class="form-control rounded-0"
+                        style="padding-right: 36px; width: 100px"
+                        placeholder="0"
+                      />
+                      <span class="input-group-text" style="width: 50px"
+                        >kWh</span
+                      >
+                    </div>
+                  </div>
+                </div>
+                <div class="row justify-content-center">
+                  <div class="col-auto mb-2" id="kwhoffpkregister">
+                    <div class="input-group input-group-sm has-validation">
+                      <span class="input-group-text" style="width: 130px"
+                        >Super Off-Peak</span
+                      >
+                      <input
+                        type="text"
+                        id="kwhsuperoffpkbilledunit"
                         class="form-control rounded-0"
                         style="padding-right: 36px; width: 100px"
                         placeholder="0"
@@ -722,7 +741,7 @@
                   id="offpklabel"
                   class="bg-success-subtle border border-success-subtle"
                 >
-                  Double Register Off-Peak Unit
+                  Multi Register Off-Peak Unit
                 </th>
                 <td
                   id="offpkrate"
@@ -740,10 +759,31 @@
               <tr>
                 <th
                   scope="row"
+                  id="superoffpklabel"
+                  class="bg-success-subtle border border-success-subtle"
+                >
+                  Multi Register Super Off-Peak Unit
+                </th>
+                <td
+                  id="superoffpkrate"
+                  class="text-end bg-success-subtle border border-success-subtle"
+                ></td>
+                <td
+                  id="superoffpkunit"
+                  class="text-end bg-success-subtle border border-success-subtle"
+                ></td>
+                <td
+                  id="superoffpkbill"
+                  class="text-end bg-success-subtle border border-success-subtle"
+                ></td>
+              </tr>
+              <tr>
+                <th
+                  scope="row"
                   id="pklabel"
                   class="bg-success-subtle border border-success-subtle"
                 >
-                  Double Register Peak Unit
+                  Multi Register Peak Unit
                 </th>
                 <td
                   id="pkrate"
@@ -785,7 +825,7 @@
                   id="offpkxflabel"
                   class="bg-danger-subtle border border-danger-subtle"
                 >
-                  Double Register Off-Peak X-Former Loss Unit
+                  Multi Register Off-Peak X-Former Loss Unit
                 </th>
                 <td
                   id="offpkxfrate"
@@ -803,10 +843,31 @@
               <tr>
                 <th
                   scope="row"
+                  id="superoffpkxflabel"
+                  class="bg-danger-subtle border border-danger-subtle"
+                >
+                  Multi Register Super Off-Peak X-Former Loss Unit
+                </th>
+                <td
+                  id="superoffpkxfrate"
+                  class="text-end bg-danger-subtle border border-danger-subtle"
+                ></td>
+                <td
+                  id="superoffpkxfunit"
+                  class="text-end bg-danger-subtle border border-danger-subtle"
+                ></td>
+                <td
+                  id="superoffpkxfbill"
+                  class="text-end bg-danger-subtle border border-danger-subtle"
+                ></td>
+              </tr>
+              <tr>
+                <th
+                  scope="row"
                   id="pkxflabel"
                   class="bg-danger-subtle border border-danger-subtle"
                 >
-                  Double Register Peak X-Former Loss Unit
+                  Multi Register Peak X-Former Loss Unit
                 </th>
                 <td
                   id="pkxfrate"
@@ -852,7 +913,7 @@
                   id="offpkpfclabel"
                   class="bg-warning-subtle border border-warning-subtle"
                 >
-                  Double Register Off-Peak PF Correction
+                  Multi Register Off-Peak PF Correction
                 </th>
                 <td
                   id="offpkpfcrate"
@@ -874,10 +935,35 @@
               <tr>
                 <th
                   scope="row"
+                  id="superoffpkpfclabel"
+                  class="bg-warning-subtle border border-warning-subtle"
+                >
+                  Multi Register Super Off-Peak PF Correction
+                </th>
+                <td
+                  id="superoffpkpfcrate"
+                  class="text-end bg-warning-subtle border border-warning-subtle"
+                >
+                  <span class="badge rounded-pill text-bg-secondary"
+                    >PF = <span id="superoffpkpfval">#.##</span></span
+                  >
+                </td>
+                <td
+                  id="superoffpkpfcunit"
+                  class="text-end bg-warning-subtle border border-warning-subtle"
+                ></td>
+                <td
+                  id="superoffpkpfcbill"
+                  class="text-end bg-warning-subtle border border-warning-subtle"
+                ></td>
+              </tr>
+              <tr>
+                <th
+                  scope="row"
                   id="pkpfclabel"
                   class="bg-warning-subtle border border-warning-subtle"
                 >
-                  Double Register Peak PF Correction
+                  Multi Register Peak PF Correction
                 </th>
                 <td
                   id="pkpfcrate"
@@ -1200,7 +1286,7 @@
     ></script>
 
     <!-- javascript portion -->
-    <script src="resources/js/electricity-MT1.js"></script>
+    <script src="resources/js/electricity-MT7.js"></script>
     <script src="resources/js/powerfactor.js"></script>
     <script src="resources/js/systemloss.js"></script>
 
